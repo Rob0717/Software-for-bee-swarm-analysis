@@ -1,0 +1,17 @@
+.container {
+  max-width: 1024px;
+}
+
+::ng-deep {
+  .p-fileupload-choose {
+    border-radius: 0.5rem;
+  }
+}
+
+textarea {
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+  }
+}

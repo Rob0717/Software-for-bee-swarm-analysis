@@ -1,0 +1,575 @@
+{
+  "menu": {
+    "home": "Home",
+    "reportsRoot": "Swarm reporting",
+    "reportCreate": "Report a swarm",
+    "reportList": "Reported swarms",
+    "accountRoot": "Account",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "register": "Sign up",
+    "beekeeperRoot": "Beekeeper",
+    "profile": "Profile",
+    "apiaries": "Apiaries",
+    "myActiveReports": "My active reports",
+    "myInactiveReports": "My inactive reports",
+    "adminRoot": "Admin",
+    "adminUsers": "Beekeepers management"
+  },
+  "profile": {
+    "title": "My profile",
+    "placeholder": "No data found.",
+    "role": {
+      "admin": "Admin",
+      "beekeeper": "Beekeeper"
+    },
+    "tabs": {
+      "my_data": "My data",
+      "apiaries": "Apiaries",
+      "my_active_swarms": "Active swarms assigned to me",
+      "my_inactive_swarms": "Resolved swarms assigned to me"
+    },
+    "my_data": {
+      "title": "Personal information",
+      "description": "Here you can view your personal information.",
+      "name": "Name",
+      "surname": "Surname",
+      "email": "Email",
+      "address": "Address",
+      "phone": "Phone",
+      "role": "Role",
+      "status": "Status",
+      "verified": "Verified",
+      "unverified": "Unverified"
+    },
+    "apiaries": {
+      "title": "My apiaries",
+      "description": "Here you can manage your apiaries.",
+      "show": {
+        "map": "Show apiaries map",
+        "add": "Add new apiary",
+        "dialog": {
+          "apiaries": {
+            "title": "Overview of all apiaries"
+          },
+          "add": {
+            "apiary": {
+              "title": "Add a new apiary",
+              "name": "Apiary name",
+              "radius": "Radius (km)",
+              "button": {
+                "save": "Save",
+                "cancel": "Cancel"
+              },
+              "success": {
+                "summary": "Success",
+                "detail": "New apiary is added"
+              },
+              "delete": {
+                "message": "Are you sure you want to delete this apiary?",
+                "header": "Delete confirmation",
+                "acceptLabel": "Delete",
+                "rejectLabel": "Cancel",
+                "success": {
+                  "summary": "Deleted",
+                  "detail": "Apiary is deleted successfully"
+                }
+              }
+            }
+          }
+        }
+      },
+      "item": {
+        "no_address": "The address is not given",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "id": "Apiary ID",
+        "delete": "Delete"
+      }
+    },
+    "my_swarms": {
+      "change_status_title": "Report updated",
+      "change_status_message": "The report status has been successfully updated",
+      "photo_alt": "Swarm",
+      "no_description": "No description",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "remove": {
+        "label": "Give up report",
+        "message": "Are you sure you want to give up this report?",
+        "header": "Removal confirmation",
+        "acceptLabel": "Remove",
+        "rejectLabel": "Cancel",
+        "success": {
+          "summary": "Removed",
+          "detail": "The report has been successfully removed from the user"
+        }
+      }
+    },
+    "my_active_swarms": {
+      "title": "Unresolved swarms",
+      "description": "Here you can find all unresolved swarms assigned to you."
+    },
+    "my_inactive_swarms": {
+      "title": "Resolved swarms",
+      "description": "Here you can find all resolved swarms assigned to you."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "button": {
+        "label": "Sign in"
+      },
+      "email": {
+        "placeholder": "E-mail address",
+        "required": "E-mail address is required.",
+        "format": "E-mail address is not in correct format."
+      },
+      "password": {
+        "placeholder": "Password",
+        "required": "Password is required.",
+        "forgotten": "Forgotten password"
+      },
+      "new_account": {
+        "label": "Don't have an account yet?",
+        "link": "Register here!"
+      },
+      "success": {
+        "summary": "Signed in",
+        "detail": "You have been signed in successfully"
+      }
+    },
+    "logout": {
+      "success": {
+        "summary": "Signed out",
+        "detail": "You have been signed out successfully"
+      }
+    },
+    "register": {
+      "title": "Registration",
+      "submit": "Register",
+      "name": {
+        "placeholder": "First name",
+        "format": "First name invalid format."
+      },
+      "surname": {
+        "placeholder": "Last name",
+        "format": "Last name invalid format."
+      },
+      "email": {
+        "placeholder": "E-mail address",
+        "required": "E-mail address is required.",
+        "format": "E-mail address is not in correct format."
+      },
+      "phone": {
+        "placeholder": "Phone number (optional)",
+        "format": "Phone number is not in correct format."
+      },
+      "password": {
+        "placeholder": "Password",
+        "required": "Password is required.",
+        "invalid": "Password does not meet requirements.",
+        "requirements": "Password requirements",
+        "weak": "Weak",
+        "medium": "Medium",
+        "strong": "Strong",
+        "min_length": "At least 8 characters",
+        "uppercase": "At least one uppercase letter",
+        "lowercase": "At least one lowercase letter",
+        "numeric": "At least one number",
+        "special_char": "At least one special char"
+      },
+      "confirm_password": {
+        "placeholder": "Confirm password",
+        "required": "Password confirmation is required.",
+        "mismatch": "Passwords do not match."
+      },
+      "existing_account": {
+        "label": "Already have an account?",
+        "link": "Sign in here!"
+      },
+      "location": {
+        "title": "Your address"
+      },
+      "success": {
+        "summary": "Successful registration",
+        "detail": "The user has been registered successfully"
+      },
+      "info": {
+        "summary": "Verify your account",
+        "detail": "A verification link has been sent to your email inbox"
+      }
+    },
+    "confirm-account": {
+      "title": "Confirm account",
+      "button": {
+        "homepage": "Back to home page",
+        "login": "Continue to sign in"
+      },
+      "success": {
+        "type": {
+          "VERIFICATION_SUCCESS": "Verification success"
+        },
+        "code": {
+          "VERIFICATION_SUCCESS": "Account is successfully verified"
+        }
+      }
+    },
+    "forgotten-password": {
+      "title": "Forgotten password",
+      "button": {
+        "label": "Send"
+      },
+      "email": {
+        "placeholder": "E-mail address",
+        "required": "E-mail address is required.",
+        "format": "E-mail address is not in correct format."
+      },
+      "info": {
+        "type": {
+          "FORGOTTEN_PASSWORD_INFO": "Password change request"
+        },
+        "code": {
+          "FORGOTTEN_PASSWORD_INFO": "A password change link has been sent to your email inbox"
+        }
+      }
+    },
+    "set-new-password": {
+      "title": "Setting a new password",
+      "token": {
+        "invalid": {
+          "title": "Invalid link",
+          "message": "Your request cannot be processed",
+          "button": {
+            "homepage": "Back to home page"
+          }
+        }
+      },
+      "button": {
+        "label": "Send"
+      },
+      "success": {
+        "type": {
+          "SET_NEW_PASSWORD_SUCCESS": "Password changed"
+        },
+        "code": {
+          "SET_NEW_PASSWORD_SUCCESS": "New password has been successfully set"
+        }
+      }
+    }
+  },
+  "location": {
+    "search": {
+      "button": "Search",
+      "placeholder": "Enter the address and press search",
+      "no_results": "No results",
+      "error": "Error during search"
+    },
+    "current": {
+      "button": "Use current location"
+    },
+    "clear": {
+      "button": "Delete"
+    },
+    "geolocation": {
+      "error": "Error during getting current location"
+    },
+    "selected": {
+      "title": "Chosen location"
+    },
+    "coordinates": "Coordinates"
+  },
+  "reportStatus": {
+    "new": "New",
+    "in_progress": "In progress",
+    "resolved": "Resolved",
+    "rejected": "Rejected"
+  },
+  "error": {
+    "type": {
+      "UNAUTHORIZED": "Unauthorized",
+      "UNKNOWN": "Unknown error",
+      "ACCOUNT_ALREADY_VERIFIED": "Verification aborted",
+      "INVALID_EMAIL": "Registration error",
+      "EMAIL_ALREADY_EXISTS": "Existing email",
+      "REGISTRATION_FAILED": "Registration failed",
+      "USER_NOT_FOUND": "User not found",
+      "INVALID_OR_EXPIRED_TOKEN": "Verification failed",
+      "EMAIL_SEND_ERROR": "Internal server error",
+      "INVALID_REQUEST": "Invalid request",
+      "PASSWORD_ALREADY_CHANGED": "Password change",
+      "APIARY_NOT_FOUND": "Apiary not found",
+      "REPORT_NOT_FOUND": "Report not found",
+      "ALREADY_ASSIGNED": "Report already assigned",
+      "FORBIDDEN_BANNED_ACCESS": "Forbidden access"
+    },
+    "code": {
+      "INVALID_CREDENTIALS": "Invalid credentials",
+      "UNKNOWN": "Unknown error has occurred",
+      "ACCOUNT_NOT_VERIFIED": "Account is not verified",
+      "ACCOUNT_ALREADY_VERIFIED": "Account is already verified",
+      "INVALID_EMAIL": "The email format is invalid",
+      "EMAIL_ALREADY_EXISTS": "This email is already registered",
+      "REGISTRATION_FAILED": "Failed to register the user",
+      "USER_NOT_FOUND": "User not found in database",
+      "INVALID_OR_EXPIRED_TOKEN": "Token is invalid or expired",
+      "EMAIL_SEND_ERROR": "Error during sending an email",
+      "INVALID_REQUEST": "Error during processing request",
+      "PASSWORD_ALREADY_CHANGED": "Password was changed already",
+      "APIARY_NOT_FOUND": "Apiary could not be deleted",
+      "REPORT_NOT_FOUND": "Report could not be found",
+      "ALREADY_ASSIGNED": "Another beekeeper has already taken this swarm",
+      "FORBIDDEN_BANNED_ACCESS": "User access is forbidden"
+    }
+  },
+  "admin": {
+    "users": {
+      "table": {
+        "title": "Beekeepers",
+        "clear_filters_button": "Clear filters",
+        "columns": {
+          "id": "ID",
+          "name": "First name",
+          "surname": "Last name",
+          "email": "Email",
+          "address": "Address",
+          "coordinates": "Coordinates",
+          "phone": "Phone",
+          "role": "Role",
+          "verified": "Verified",
+          "banned": "Access banned",
+          "access": "Access management"
+        },
+        "filters": {
+          "name": "Search first name...",
+          "surname": "Search last name...",
+          "email": "Search email...",
+          "address": "Search address...",
+          "phone": "Search phone...",
+          "verified": "Verified...",
+          "banned": "Access banned..."
+        },
+        "button": {
+          "ban": "Ban access",
+          "unban": "Unban access",
+          "access": {
+            "summary": "Updated",
+            "detail": "User access has been updated"
+          }
+        },
+        "bool": {
+          "yes": "Yes",
+          "no": "No"
+        },
+        "role": {
+          "admin": "Admin",
+          "beekeeper": "Beekeeper"
+        },
+        "empty": "No beekeepers found."
+      }
+    }
+  },
+  "forbidden": {
+    "tag": "Access denied",
+    "title": "You don’t have access",
+    "subtitle": "This page is available only to authorized users. Sign in with a different account, or go back.",
+    "homepage": "Back to home",
+    "report": "Report a swarm",
+    "tip": {
+      "title": "Tip",
+      "message": "If you believe you should have access, try signing out and signing in again."
+    },
+    "graphics": {
+      "message": "Secured • Permission required"
+    },
+    "footer": {
+      "message": "© 2026 Róbert Onder. Software for bee swarms analysis."
+    }
+  },
+  "notfound": {
+    "tag": "Page not found",
+    "title": "Nothing here",
+    "subtitle": "The link is incorrect, or the page no longer exists. Try going back home or report a swarm.",
+    "homepage": "Back to home",
+    "report": "Report a swarm",
+    "tip": {
+      "title": "Tip",
+      "message": "If you got here from the app, the URL may have changed. Check the route or use the menu."
+    },
+    "graphics": {
+      "message": "Lost path • We'll get you back"
+    },
+    "footer": {
+      "message": "© 2026 Róbert Onder. Software for bee swarm analysis."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Software for bee swarm analysis",
+      "subtitle": "A modern platform for tracking and managing bee swarms. Make rescue teams work easier and help save bees."
+    },
+    "actions": {
+      "report": "Report a swarm",
+      "myReports": "My reports",
+      "login": "Sign in",
+      "adminUsers": "Beekeepers management"
+    },
+    "features": {
+      "title": "Key features for beekeepers",
+      "subtitle": "Everything you need to work with bee swarms effectively",
+      "items": {
+        "localization": {
+          "title": "Swarm location",
+          "description": "Accurate geographic tracking of bee swarms with map support and GPS coordinates."
+        },
+        "community": {
+          "title": "Beekeeping community",
+          "description": "Beekeepers enabling efficient handling of bee swarms."
+        },
+        "notifications": {
+          "title": "Notifications",
+          "description": "Automatic email notifications about new swarms near your apiaries."
+        },
+        "analytics": {
+          "title": "Analytics",
+          "description": "Overviews of swarm activity in your region."
+        },
+        "mobile": {
+          "title": "Mobile access",
+          "description": "Responsive design for comfortable use on all devices."
+        },
+        "security": {
+          "title": "Security",
+          "description": "Secure authentication and protection of your personal data."
+        }
+      }
+    },
+    "report": {
+      "title": "Seen a swarm?",
+      "subtitle": "Help beekeepers nearby! Anyone can report a swarm location on the map. Your report helps save bees and supports the local beekeeping community.",
+      "tip": "Tip: Register as a beekeeper to get access to swarm notifications in your area",
+      "badge": "No registration • Fast • Simple"
+    },
+    "join": {
+      "title": {
+        "loggedIn": "Become part of our community",
+        "guest": "Are you a beekeeper? Join us!"
+      },
+      "subtitle": {
+        "loggedIn": "Track swarms in your area and help grow our beekeeping community.",
+        "guest": "Register for free and get access to swarm notifications in your area."
+      },
+      "actions": {
+        "register": "Register as a beekeeper",
+        "login": "I already have an account"
+      }
+    },
+    "footer": {
+      "message": "© 2026 Róbert Onder. Software for bee swarm analysis."
+    }
+  },
+  "createReport": {
+    "page": {
+      "title": "Report a bee swarm",
+      "subtitle": "Help beekeepers by marking the location where you spotted a bee swarm"
+    },
+    "card": {
+      "title": "Report details"
+    },
+    "description": {
+      "label": "Location description *",
+      "placeholder": "Describe the swarm location – e.g. \"The swarm was found in a garden tree about 3 meters above the ground.\"",
+      "error": "Description is required (minimum 10 characters, maximum 200 characters)"
+    },
+    "photo": {
+      "label": "Photo (optional)",
+      "choose": "Choose a photo",
+      "hint": "Maximum size: 10 MB. Supported formats: JPEG, JPG, PNG, GIF, WEBP",
+      "errors": {
+        "tooLarge": "The file is too large. The maximum size is 10 MB.",
+        "invalidType": "Invalid file format. Supported formats: JPEG, JPG, PNG, GIF, WEBP."
+      }
+    },
+    "location": {
+      "label": "Swarm location *",
+      "error": "Please select a location on the map"
+    },
+    "tips": {
+      "title": "Tips for a good report",
+      "items": {
+        "place": "Provide an accurate place description (tree type, building, etc.)",
+        "photo": "Add a photo if possible",
+        "map": "Mark the most accurate position on the map"
+      }
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "submit": "Submit report"
+    },
+    "cancel": {
+      "title": "Reporting in progress",
+      "confirm": "Are you sure you want to leave? All unsaved changes will be lost.",
+      "leave": "Leave",
+      "stay": "Stay"
+    },
+    "alert": {
+      "errorSummary": "Error",
+      "successSummary": "Success",
+      "successSent": "The swarm report has been submitted successfully"
+    }
+  },
+  "reports": {
+    "title": "Reported bee swarms",
+    "actions": {
+      "clearFilters": "Clear filters",
+      "takeOver": "Take over report"
+    },
+    "table": {
+      "photo": "Photo",
+      "coords": "Coordinates",
+      "location": "Swarm location",
+      "description": "Swarm description",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at",
+      "assignedTo": "Assigned to beekeeper",
+      "status": "Swarm status",
+      "manage": "Report management"
+    },
+    "filters": {
+      "descriptionPlaceholder": "Search in description...",
+      "beekeeperPlaceholder": "Select a beekeeper...",
+      "statusPlaceholder": "Select status...",
+      "unassigned": "Unassigned"
+    },
+    "photo": {
+      "alt": "Swarm photo"
+    },
+    "empty": "No reports found.",
+    "confirmDelete": {
+      "header": "Delete confirmation",
+      "message": "Do you really want to delete this report?",
+      "accept": "Delete",
+      "reject": "Cancel"
+    },
+    "alert": {
+      "deleteSuccess": {
+        "summary": "OK",
+        "detail": "Report deleted"
+      },
+      "takeOverSuccess": {
+        "summary": "Taken over",
+        "detail": "The swarm has been taken over successfully"
+      }
+    }
+  },
+  "primeng": {
+    "startsWith": "Starts with",
+    "contains": "Contains",
+    "notContains": "Does not contain",
+    "endsWith": "Ends with",
+    "equals": "Equals",
+    "notEquals": "Not equals",
+    "noFilter": "No filter"
+  }
+}

@@ -1,0 +1,227 @@
+<p-toast position="bottom-center" key="bc" [breakpoints]="{ '440px': { width: '100%', right: '0' } }" />
+
+<form class="centered-container bg-gradient-to-b from-yellow-50 to-white dark:from-gray-900 dark:to-gray-800" [formGroup]="registerForm">
+  <p-card class="w-4/5 md:w-3/5 lg:w-2/4 xl:w-2/5 p-4 mt-10 mb-10">
+    <div class="flex justify-center">
+      <p-image src="assets/logo.svg" width="60px"></p-image>
+    </div>
+
+    <p class="text-center text-xl md:text-2xl lg:text-3xl mt-4">
+      {{ 'auth.register.title' | transloco }}
+    </p>
+
+    <div class="block mt-10 sm:grid sm:grid-cols-2 sm:gap-5">
+      <p-floatlabel>
+        <input
+          id="name"
+          class="mx-auto w-full"
+          pSize="small"
+          pInputText
+          formControlName="name"
+          maxlength="30"
+          (paste)="_formHelper.preventSpaceOnPaste($event, 'name', registerForm)"
+          (keydown.space)="_formHelper.preventSpace($event)"
+          [invalid]="_formHelper.isControlInvalid('name', registerForm, isSubmitting)" />
+        <label for="name">{{ 'auth.register.name.placeholder' | transloco }}</label>
+      </p-floatlabel>
+
+      <p-floatlabel class="mt-8 sm:mt-0">
+        <input
+          id="surname"
+          class="mx-auto w-full"
+          pSize="small"
+          pInputText
+          formControlName="surname"
+          maxlength="30"
+          (paste)="_formHelper.preventSpaceOnPaste($event, 'surname', registerForm)"
+          (keydown.space)="_formHelper.preventSpace($event)"
+          [invalid]="_formHelper.isControlInvalid('surname', registerForm, isSubmitting)" />
+        <label for="surname">{{ 'auth.register.surname.placeholder' | transloco }}</label>
+      </p-floatlabel>
+    </div>
+
+    @if (_formHelper.isControlInvalid('name', registerForm, isSubmitting)) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+        {{ 'auth.register.name.format' | transloco }}
+      </p-message>
+    }
+    @if (_formHelper.isControlInvalid('surname', registerForm, isSubmitting)) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+        {{ 'auth.register.surname.format' | transloco }}
+      </p-message>
+    }
+
+    <p-floatlabel class="mt-8">
+      <input
+        id="email"
+        class="mx-auto w-full"
+        pSize="small"
+        pInputText
+        formControlName="email"
+        maxlength="50"
+        (paste)="_formHelper.preventSpaceOnPaste($event, 'email', registerForm)"
+        (keydown.space)="_formHelper.preventSpace($event)"
+        [invalid]="_formHelper.isControlInvalid('email', registerForm, isSubmitting)" />
+      <label for="email">{{ 'auth.register.email.placeholder' | transloco }}</label>
+    </p-floatlabel>
+
+    @if (_formHelper.isControlInvalid('email', registerForm, isSubmitting)) {
+      @if (registerForm.get('email')?.errors?.['required']) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+          {{ 'auth.register.email.required' | transloco }}
+        </p-message>
+      }
+      @if (registerForm.get('email')?.errors?.['email'] || registerForm.get('email')?.errors?.['maxLength']) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+          {{ 'auth.register.email.format' | transloco }}
+        </p-message>
+      }
+    }
+
+    <p-floatlabel class="mt-8">
+      <p-inputmask
+        id="phone"
+        styleClass="w-full"
+        size="small"
+        mask="+999 999 999 999"
+        formControlName="phone"
+        [invalid]="_formHelper.isControlInvalid('phone', registerForm, isSubmitting)"
+        placeholder="+420 123 456 789"
+        [autoClear]="false"
+        autocomplete="tel"
+      ></p-inputmask>
+      <label for="phone">{{ 'auth.register.phone.placeholder' | transloco }}</label>
+    </p-floatlabel>
+
+    @if (_formHelper.isControlInvalid('phone', registerForm, isSubmitting)) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+        {{ 'auth.register.phone.format' | transloco }}
+      </p-message>
+    }
+
+    <p-floatlabel class="mt-8">
+      <p-password
+        id="password"
+        inputStyleClass="w-full"
+        class="w-full"
+        size="small"
+        autocomplete="new-password"
+        [maxlength]="60"
+        (keydown.space)="_formHelper.preventSpace($event)"
+        (paste)="_formHelper.preventSpaceOnPaste($event, 'password', registerForm)"
+        [invalid]="_formHelper.isControlInvalid('password', registerForm, isSubmitting)"
+        [toggleMask]="true"
+        formControlName="password"
+        [feedback]="true"
+        promptLabel="________"
+        weakLabel="{{ 'auth.register.password.weak' | transloco }}"
+        mediumLabel="{{ 'auth.register.password.medium' | transloco }}"
+        strongLabel="{{ 'auth.register.password.strong' | transloco }}">
+        <ng-template pTemplate="header">
+          <div class="font-semibold text-sm mb-4">
+            {{ 'auth.register.password.requirements' | transloco }}
+          </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <p-divider />
+          <ul class="pl-2 my-2 leading-normal text-sm">
+            <li [class.text-green-500]="hasMinLength" [class.text-gray-500]="!hasMinLength">
+              <i [class]="hasMinLength ? 'pi pi-check' : 'pi pi-times'" class="text-xs mr-1"></i>
+              {{ 'auth.register.password.min_length' | transloco }}
+            </li>
+            <li [class.text-green-500]="hasUpperCase" [class.text-gray-500]="!hasUpperCase">
+              <i [class]="hasUpperCase ? 'pi pi-check' : 'pi pi-times'" class="text-xs mr-1"></i>
+              {{ 'auth.register.password.uppercase' | transloco }}
+            </li>
+            <li [class.text-green-500]="hasLowerCase" [class.text-gray-500]="!hasLowerCase">
+              <i [class]="hasLowerCase ? 'pi pi-check' : 'pi pi-times'" class="text-xs mr-1"></i>
+              {{ 'auth.register.password.lowercase' | transloco }}
+            </li>
+            <li [class.text-green-500]="hasNumeric" [class.text-gray-500]="!hasNumeric">
+              <i [class]="hasNumeric ? 'pi pi-check' : 'pi pi-times'" class="text-xs mr-1"></i>
+              {{ 'auth.register.password.numeric' | transloco }}
+            </li>
+            <li [class.text-green-500]="hasSpecialChar" [class.text-gray-500]="!hasSpecialChar">
+              <i [class]="hasSpecialChar ? 'pi pi-check' : 'pi pi-times'" class="text-xs mr-1"></i>
+              {{ 'auth.register.password.special_char' | transloco }}
+            </li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <label for="password">{{ 'auth.register.password.placeholder' | transloco }}</label>
+    </p-floatlabel>
+
+    <p-floatlabel class="mt-8">
+      <p-password
+        id="confirmPassword"
+        inputStyleClass="w-full"
+        class="w-full"
+        size="small"
+        autocomplete="new-password"
+        (keydown.space)="_formHelper.preventSpace($event)"
+        (paste)="_formHelper.preventSpaceOnPaste($event, 'confirmPassword', registerForm)"
+        [invalid]="_formHelper.isControlInvalid('confirmPassword', registerForm, isSubmitting)"
+        [toggleMask]="true"
+        formControlName="confirmPassword"
+        [feedback]="false">
+      </p-password>
+      <label for="confirmPassword">{{ 'auth.register.confirm_password.placeholder' | transloco }}</label>
+    </p-floatlabel>
+
+    @if (_formHelper.isControlInvalid('confirmPassword', registerForm, isSubmitting)) {
+      @if (registerForm.get('confirmPassword')?.errors?.['required']) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+          {{ 'auth.register.confirm_password.required' | transloco }}
+        </p-message>
+      }
+      @if (registerForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+          {{ 'auth.register.confirm_password.mismatch' | transloco }}
+        </p-message>
+      }
+    }
+
+    <div class="mt-8">
+      <app-generic-map
+        [config]="{
+          mode: 'select',
+          showSearch: true,
+          showCurrentLocation: true,
+          showChosenLocation: true
+        }"
+        [mapHeight]="'300px'"
+        (locationSelected)="onResidenceSelected($event)"
+        [clear]="clearMap"
+      ></app-generic-map>
+    </div>
+
+    @if (_formHelper.isControlInvalid('latitude', registerForm, isSubmitting) || _formHelper.isControlInvalid('longitude', registerForm, isSubmitting)) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+        {{ 'auth.register.location.required' | transloco }}
+      </p-message>
+    }
+
+    <div class="block md:flex justify-between mt-6">
+      <div class="block 2xl:flex sm:justify-start">
+        <p class="mt-4 ml-3 text-sm">{{ 'auth.register.existing_account.label' | transloco }}</p>
+        <p-button
+          class="mt-2"
+          link
+          size="small"
+          label="{{ 'auth.register.existing_account.link' | transloco }}"
+          routerLink="/auth/login">
+        </p-button>
+      </div>
+    </div>
+
+    <p-button
+      [disabled]="registerForm.invalid"
+      [loading]="isSubmitting"
+      type="button"
+      (onClick)="submitForm()"
+      styleClass="mt-4 w-full"
+      icon="pi pi-sign-in"
+      label="{{ 'auth.register.submit' | transloco }}"
+    ></p-button>
+  </p-card>
+</form>

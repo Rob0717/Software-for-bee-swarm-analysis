@@ -1,0 +1,73 @@
+<form class="centered-container bg-gradient-to-b from-yellow-50 to-white dark:from-gray-900 dark:to-gray-800" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+  <p-card class="w-4/5 md:w-3/5 lg:w-2/4 xl:w-2/5 p-4 mt-10">
+    <div class="flex justify-center">
+      <p-image src="assets/logo.svg" width="60px"></p-image>
+    </div>
+
+    <p class="text-center text-xl md:text-2xl lg:text-3xl mt-4">{{ 'auth.login.title' | transloco }}</p>
+
+    <p-floatlabel class="mt-10">
+      <input id="email" class="mx-auto w-full" pSize="small" pInputText formControlName="email"
+             [invalid]="_formHelper.isControlInvalid('email', loginForm, isSubmitting)" maxlength="50"/>
+      <label for="email">{{ 'auth.login.email.placeholder' | transloco }}</label>
+    </p-floatlabel>
+
+    @if (_formHelper.isControlInvalid('email', loginForm, isSubmitting)) {
+      @if (loginForm.get('email')?.errors?.['required']) {
+        <p-message severity="error" size="small" variant="simple">{{ 'auth.login.email.required' | transloco }}</p-message>
+      }
+      @if (loginForm.get('email')?.errors?.['email']) {
+        <p-message severity="error" size="small" variant="simple">{{ 'auth.login.email.format' | transloco }}</p-message>
+      }
+    }
+
+    <p-floatlabel class="mt-8">
+      <p-password
+        id="password"
+        inputStyleClass="w-full"
+        class="w-full"
+        size="small"
+        inputId="password"
+        [maxlength]="60"
+        [invalid]="_formHelper.isControlInvalid('password', loginForm, isSubmitting)"
+        formControlName="password"
+        [feedback]="false"
+        [toggleMask]="true"
+      />
+      <label for="password">{{ 'auth.login.password.placeholder' | transloco }}</label>
+    </p-floatlabel>
+    @if (_formHelper.isControlInvalid('password', loginForm, isSubmitting)) {
+      <p-message severity="error" size="small" variant="simple">{{ 'auth.login.password.required' | transloco }}</p-message>
+    }
+
+    <div class="block md:flex justify-between">
+      <div class="block 2xl:flex sm:justify-start">
+        <p class="mt-4 ml-3 text-sm" >{{ 'auth.login.new_account.label' | transloco }}</p>
+        <p-button
+          class="mt-2"
+          link
+          size="small"
+          label="{{ 'auth.login.new_account.link' | transloco }}"
+          routerLink="/auth/register"
+        ></p-button>
+      </div>
+      <div class="mt-2">
+        <p-button
+          link
+          size="small"
+          label="{{ 'auth.login.password.forgotten' | transloco }}"
+          routerLink="/auth/forgotten-password"
+        ></p-button>
+      </div>
+    </div>
+
+    <p-button
+      [disabled]="loginForm.invalid"
+      [loading]="isSubmitting"
+      type="submit"
+      styleClass="mt-4 w-full"
+      label="{{ 'auth.login.button.label' | transloco }}"
+      icon="pi pi-sign-in"
+    ></p-button>
+  </p-card>
+</form>

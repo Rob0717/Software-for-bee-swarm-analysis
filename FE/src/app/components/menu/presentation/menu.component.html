@@ -1,0 +1,29 @@
+<p-menubar [model]="(items$ | async) ?? []" class="navbar" tabindex="-1">
+  <ng-template pTemplate="start">
+    <p-image class="logo" src="assets/logo.svg" width="40px" routerLink="/" tabindex="-1"></p-image>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="flex gap-3">
+      <p-select
+        [options]="languages"
+        [(ngModel)]="selectedLanguage"
+        (onChange)="onLanguageChange($event.value)"
+      >
+        <ng-template let-selectedOption pTemplate="selectedItem">
+          @if (selectedOption) {
+            <div class="flex gap-3">
+              <span>{{ selectedOption.label }}</span>
+            </div>
+          }
+        </ng-template>
+        <ng-template let-language pTemplate="item">
+          <div class="flex gap-3">
+            <span>{{ language.label }}</span>
+          </div>
+        </ng-template>
+      </p-select>
+      <p-button icon="pi pi-sun" (click)="toggleLightOrDarkMode()" tabindex="-1"></p-button>
+    </div>
+  </ng-template>
+</p-menubar>
