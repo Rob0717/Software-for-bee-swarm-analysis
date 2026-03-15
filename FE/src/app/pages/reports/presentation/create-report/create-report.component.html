@@ -1,0 +1,163 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+  <div class="container mx-auto px-4">
+    <div class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        {{ 'createReport.page.title' | transloco }}
+      </h1>
+      <p class="text-gray-600 dark:text-gray-300">
+        {{ 'createReport.page.subtitle' | transloco }}
+      </p>
+    </div>
+
+    <form [formGroup]="reportForm">
+      <p-card>
+        <ng-template pTemplate="header">
+          <div class="p-6 pb-0">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+              {{ 'createReport.card.title' | transloco }}
+            </h2>
+          </div>
+        </ng-template>
+
+        <div class="space-y-6">
+          <div>
+            <label for="description" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              {{ 'createReport.description.label' | transloco }}
+            </label>
+
+            <textarea
+              id="description"
+              pTextarea
+              formControlName="description"
+              rows="4"
+              maxlength="200"
+              class="w-full"
+              [placeholder]="'createReport.description.placeholder' | transloco"
+              [class.ng-invalid]="_formHelper.isControlInvalid('description', reportForm, isSubmitting)"
+              [class.ng-dirty]="reportForm.get('description')?.dirty"
+            ></textarea>
+
+            @if (_formHelper.isControlInvalid('description', reportForm, isSubmitting)) {
+              <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+                {{ 'createReport.description.error' | transloco }}
+              </p-message>
+            }
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              {{ 'createReport.photo.label' | transloco }}
+            </label>
+
+            <div class="block">
+              <div class="flex items-center">
+                <p-fileupload
+                  #fileUpload
+                  mode="basic"
+                  [chooseLabel]="'createReport.photo.choose' | transloco"
+                  [auto]="true"
+                  accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                  [maxFileSize]="10000000"
+                  (onSelect)="onPhotoSelect($event)"
+                  [customUpload]="true"
+                  chooseIcon="pi pi-camera"
+                  styleClass="w-full md:w-auto"
+                ></p-fileupload>
+                @if (photoPreview) {
+                  <p-button
+                    icon="pi pi-times"
+                    [rounded]="true"
+                    severity="danger"
+                    size="small"
+                    (onClick)="removePhoto()"
+                    styleClass="ml-2"
+                  ></p-button>
+                }
+              </div>
+
+              @if (photoPreview) {
+                <div class="relative p-2 inline-block">
+                  <p-image
+                    [src]="photoPreview"
+                    [previewImageSrc]="photoPreview"
+                    imageClass="w-24 h-24 object-cover rounded-lg border-2 border-gray-200 dark:border-gray-700"
+                    [preview]="true"
+                  ></p-image>
+                </div>
+              }
+            </div>
+
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              {{ 'createReport.photo.hint' | transloco }}
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              {{ 'createReport.location.label' | transloco }}
+            </label>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+              <app-generic-map
+                [config]="{
+                  mode: 'select',
+                  showSearch: true,
+                  showChosenLocation: true,
+                  showCurrentLocation: true,
+                  defaultZoom: 7
+                }"
+                [mapHeight]="'400px'"
+                (locationSelected)="onLocationSelected($event)"
+                [clear]="clearMap"
+              ></app-generic-map>
+            </div>
+
+            @if (_formHelper.isControlInvalid('latitude', reportForm, isSubmitting)
+            || _formHelper.isControlInvalid('longitude', reportForm, isSubmitting)) {
+              <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+                {{ 'createReport.location.error' | transloco }}
+              </p-message>
+            }
+          </div>
+
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <div class="flex gap-3">
+              <i class="pi pi-info-circle text-blue-600 dark:text-blue-400 text-xl mt-0.5"></i>
+              <div class="flex-1">
+                <p class="text-sm text-blue-900 dark:text-blue-100 font-semibold mb-1">
+                  {{ 'createReport.tips.title' | transloco }}
+                </p>
+                <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                  <li>• {{ 'createReport.tips.items.place' | transloco }}</li>
+                  <li>• {{ 'createReport.tips.items.photo' | transloco }}</li>
+                  <li>• {{ 'createReport.tips.items.map' | transloco }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-4 justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p-button
+              label="{{ 'createReport.actions.cancel' | transloco }}"
+              icon="pi pi-times"
+              severity="secondary"
+              [outlined]="true"
+              (onClick)="cancel($event)"
+              [disabled]="isSubmitting"
+            ></p-button>
+
+            <p-button
+              type="button"
+              label="{{ 'createReport.actions.submit' | transloco }}"
+              icon="pi pi-check"
+              [loading]="isSubmitting"
+              [disabled]="reportForm.invalid"
+              (onClick)="submitForm()"
+              styleClass="px-6"
+            ></p-button>
+          </div>
+        </div>
+      </p-card>
+    </form>
+  </div>
+</div>

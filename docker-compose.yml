@@ -1,0 +1,93 @@
+services:
+  mysql:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - bee_net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+      start_period: 30s
+
+  migrate:
+    build: ./BE
+    restart: "no"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - bee_net
+    env_file:
+      - ./.env
+    environment:
+      NODE_ENV: production
+      DB_HOSTNAME: ${DB_HOSTNAME:-mysql}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    command: ["npm", "run", "migration:docker"]
+
+  backend:
+    build: ./BE
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - uploads:/app/uploads
+    networks:
+      - bee_net
+    env_file:
+      - ./.env
+    environment:
+      NODE_ENV: production
+      BACKEND_PORT: ${BACKEND_PORT:-3000}
+      BACKEND_URL: ${BACKEND_URL:-http://localhost:8080}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:8080}
+
+      DB_HOSTNAME: ${DB_HOSTNAME:-mysql}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+      JWT_ACCESS_SECRET_DURATION: ${JWT_ACCESS_SECRET_DURATION:-4h}
+      JWT_ACCOUNT_VERIFY_SECRET: ${JWT_ACCOUNT_VERIFY_SECRET}
+      JWT_ACCOUNT_VERIFY_SECRET_DURATION: ${JWT_ACCOUNT_VERIFY_SECRET_DURATION:-1h}
+      JWT_RESET_PASSWORD_SECRET: ${JWT_RESET_PASSWORD_SECRET}
+      JWT_RESET_PASSWORD_SECRET_DURATION: ${JWT_RESET_PASSWORD_SECRET_DURATION:-1h}
+
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+    command: ["node", "dist/main.js"]
+
+  frontend:
+    build: ./FE
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "80:80"
+    networks:
+      - bee_net
+
+networks:
+  bee_net: {}
+
+volumes:
+  mysql_data: {}
+  uploads: {}
