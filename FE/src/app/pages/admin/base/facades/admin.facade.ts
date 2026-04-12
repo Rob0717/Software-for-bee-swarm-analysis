@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {firstValueFrom} from 'rxjs';
-import {AdminRepository} from '@app/pages/admin/repositories/admin.repository';
+import {AdminRepository} from '@app/pages/admin/persistent/repositories/admin.repository';
 import {ManageUserAccessRequestDto} from '@shared/models/generated-dtos/manage-user-access-request-dto';
 import {UserResponseDto} from '@shared/models/generated-dtos/user-response-dto';
 

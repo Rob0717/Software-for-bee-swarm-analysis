@@ -19,7 +19,7 @@ import {asyncScheduler, firstValueFrom, Subject} from 'rxjs';
 import {ApiaryFacade} from '@app/pages/auth/base/facades/apiary.facade';
 import {AuthFacade} from '@app/pages/auth/base/facades/auth.facade';
 import {ReportFacade} from '@app/pages/reports/base/facades/report.facade';
-import {MapComponent} from '@shared/components/generic-map/map.component';
+import {MapComponent} from '@app/shared/components/presentation/generic-map/map.component';
 import {ProfileTabEnum} from '@shared/enums/profile-tab.enum';
 import {ReportStatusSeverityEnum} from '@shared/enums/report-status-severity.enum';
 import {ReportStatus} from '@shared/enums/report-status.enum';

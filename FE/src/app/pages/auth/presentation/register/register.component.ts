@@ -15,7 +15,7 @@ import {Password} from 'primeng/password';
 import {Toast} from 'primeng/toast';
 import {Subject, takeUntil} from 'rxjs';
 import {AuthFacade} from '@app/pages/auth/base/facades/auth.facade';
-import {MapComponent} from '@shared/components/generic-map/map.component';
+import {MapComponent} from '@app/shared/components/presentation/generic-map/map.component';
 import {FormHelper} from '@shared/helpers/form.helper';
 import {LocationDataModel} from '@shared/models/location-data.model';
 import {AlertService} from '@shared/services/alert.service';

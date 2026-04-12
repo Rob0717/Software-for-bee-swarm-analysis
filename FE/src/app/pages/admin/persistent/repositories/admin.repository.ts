@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ManageUserAccessRequestDto} from '@shared/models/generated-dtos/manage-user-access-request-dto';
 import {UserResponseDto} from '@shared/models/generated-dtos/user-response-dto';
-import {environment} from '../../../../../environment';
+import {environment} from '../../../../../../environment';
 
 /**
  * Repository responsible for admin-related HTTP communication.
