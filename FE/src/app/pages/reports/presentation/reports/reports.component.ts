@@ -11,7 +11,7 @@ import {TagModule} from 'primeng/tag';
 import {firstValueFrom} from 'rxjs';
 import {AuthFacade} from '@app/pages/auth/base/facades/auth.facade';
 import {ReportFacade} from '@app/pages/reports/base/facades/report.facade';
-import {MapComponent} from '@app/shared/components/presentation/generic-map/map.component';
+import {MapComponent} from '@shared/components/presentation/generic-map/map.component';
 import {ReportStatusSeverityEnum} from '@shared/enums/report-status-severity.enum';
 import {ReportStatus} from '@shared/enums/report-status.enum';
 import {UserRoleEnum} from '@shared/enums/user-role.enum';

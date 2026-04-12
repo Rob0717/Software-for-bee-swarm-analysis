@@ -6,7 +6,7 @@ import {ReportResponseDto} from '@shared/dto/report/report-response.dto';
 import {MailService} from '@shared/services/mail.service';
 import {LocationService} from '@app/location/location.service';
 import {ApiaryService} from '@app/apiary/apiary.service';
-import {ApiaryEntity} from '@app/shared/entities/apiary.entity';
+import {ApiaryEntity} from '@shared/entities/apiary.entity';
 import {UserService} from '@app/user/user.service';
 import {ChangeReportStatusRequestDto} from '@shared/dto/report/change-report-status-request.dto';
 import {ChangeReportStatusResponseDto} from '@shared/dto/report/change-report-status-response.dto';
