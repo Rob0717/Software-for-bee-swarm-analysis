@@ -22,10 +22,12 @@ Quick reference for managing the application stack with Docker Compose.
 
 ## First Deployment
 
-Build images and start all services for the first time:
+1. Create a `.env` file in the project root based on `.env.example` and fill in all required values.
+
+2. Build images and start all services:
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ---
@@ -34,19 +36,19 @@ docker-compose up -d --build
 
 #### Start containers
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 #### Stop containers (data is preserved)
 ```bash
-docker-compose down
+docker compose down
 ```
 
 #### Rebuild and redeploy without data loss
 ```bash
-docker-compose down
-docker-compose build
-docker-compose up -d
+docker compose down
+docker compose build
+docker compose up -d
 ```
 
 ---
@@ -56,7 +58,7 @@ docker-compose up -d
 Connect to the MySQL database inside the running container:
 
 ```bash
-docker-compose exec mysql mysql -u root -p software_for_bee_swarm_analysis
+docker compose exec mysql mysql -u root -p software_for_bee_swarm_analysis
 ```
 
 ---
@@ -66,5 +68,5 @@ docker-compose exec mysql mysql -u root -p software_for_bee_swarm_analysis
 Stops all containers and **permanently deletes all volumes** (database data, uploaded files):
 
 ```bash
-docker-compose down -v
+docker compose down -v
 ```

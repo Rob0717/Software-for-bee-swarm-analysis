@@ -23,7 +23,7 @@ Backend REST API for locating and managing bee swarm reports, built with NestJS 
 
 ## Prerequisites
 
-- **Node.js** 20+
+- **Node.js** 22+
 - **npm** 10+
 - **MySQL** or **MariaDB** instance
 
@@ -213,6 +213,7 @@ Email notifications support **Czech** (`cs`) and **English** (`en`). Translation
 | `SMTP_PORT`                          | `587`   | SMTP server port                                |
 | `SMTP_USER`                          | —       | SMTP username                                   |
 | `SMTP_PASS`                          | —       | SMTP password                                   |
+| `USER_AGENT`                         | —       | User agent string for Nominatim API requests    |
 
 ---
 

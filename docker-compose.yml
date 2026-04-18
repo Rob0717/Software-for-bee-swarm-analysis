@@ -1,6 +1,7 @@
 services:
   mysql:
     image: mariadb:10.11
+    container_name: bee-mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -20,6 +21,8 @@ services:
 
   migrate:
     build: ./BE
+    image: bee-backend:latest
+    container_name: bee-migrate
     restart: "no"
     depends_on:
       mysql:
@@ -28,17 +31,12 @@ services:
       - bee_net
     env_file:
       - ./.env
-    environment:
-      NODE_ENV: production
-      DB_HOSTNAME: ${DB_HOSTNAME:-mysql}
-      DB_PORT: ${DB_PORT:-3306}
-      DB_NAME: ${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
     command: ["npm", "run", "migration:docker"]
 
   backend:
     build: ./BE
+    image: bee-backend:latest
+    container_name: bee-backend
     restart: unless-stopped
     depends_on:
       migrate:
@@ -49,37 +47,22 @@ services:
       - bee_net
     env_file:
       - ./.env
-    environment:
-      NODE_ENV: production
-      BACKEND_PORT: ${BACKEND_PORT:-3000}
-      BACKEND_URL: ${BACKEND_URL:-http://localhost:8080}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:8080}
-
-      DB_HOSTNAME: ${DB_HOSTNAME:-mysql}
-      DB_PORT: ${DB_PORT:-3306}
-      DB_NAME: ${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-
-      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
-      JWT_ACCESS_SECRET_DURATION: ${JWT_ACCESS_SECRET_DURATION:-4h}
-      JWT_ACCOUNT_VERIFY_SECRET: ${JWT_ACCOUNT_VERIFY_SECRET}
-      JWT_ACCOUNT_VERIFY_SECRET_DURATION: ${JWT_ACCOUNT_VERIFY_SECRET_DURATION:-1h}
-      JWT_RESET_PASSWORD_SECRET: ${JWT_RESET_PASSWORD_SECRET}
-      JWT_RESET_PASSWORD_SECRET_DURATION: ${JWT_RESET_PASSWORD_SECRET_DURATION:-1h}
-
-      SMTP_HOST: ${SMTP_HOST}
-      SMTP_PORT: ${SMTP_PORT:-587}
-      SMTP_USER: ${SMTP_USER}
-      SMTP_PASS: ${SMTP_PASS}
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 3000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     command: ["node", "dist/main.js"]
 
   frontend:
     build: ./FE
+    image: bee-frontend:latest
+    container_name: bee-frontend
     restart: unless-stopped
     depends_on:
       backend:
-        condition: service_started
+        condition: service_healthy
     ports:
       - "80:80"
     networks:
