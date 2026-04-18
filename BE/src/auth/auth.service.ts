@@ -325,7 +325,7 @@ export class AuthService {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? 'none' : 'lax',
-      maxAge: 4 * 60 * 60 * 1000, // 4 hours
+      maxAge: this._configService.get<number>('JWT_ACCESS_SECRET_DURATION') * 60 * 60 * 1000,
       path: '/',
     } as const);
   }
