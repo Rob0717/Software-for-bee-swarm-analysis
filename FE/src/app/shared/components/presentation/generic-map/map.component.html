@@ -96,8 +96,8 @@
             <p class="text-sm text-blue-800">{{ selectedLocation.displayName }}</p>
             <p class="text-xs text-blue-600 mt-1">
               {{ 'location.coordinates' | transloco }}:
-              {{ selectedLocation.latitude.toFixed(6) }},
-              {{ selectedLocation.longitude.toFixed(6) }}
+              {{ selectedLocation.latitude.toFixed(14) }},
+              {{ selectedLocation.longitude.toFixed(14) }}
             </p>
           </div>
         </div>
@@ -128,7 +128,7 @@
             <div class="flex-1 min-w-0">
               <p class="text-sm text-blue-800 truncate">{{ location.displayName }}</p>
               <p class="text-xs text-blue-600">
-                {{ location.latitude.toFixed(6) }}, {{ location.longitude.toFixed(6) }}
+                {{ location.latitude.toFixed(14) }}, {{ location.longitude.toFixed(14) }}
               </p>
             </div>
             <p-button

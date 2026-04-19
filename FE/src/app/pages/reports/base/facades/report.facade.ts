@@ -20,8 +20,8 @@ export class ReportFacade {
    * Retrieves all swarm reports.
    * @returns A promise resolving to an array of all report response objects.
    */
-  public async getAllReports(): Promise<ReportResponseDto[]> {
-    return await firstValueFrom(this._reportRepository.getAllReports$());
+  public getAllReports(): Promise<ReportResponseDto[]> {
+    return firstValueFrom(this._reportRepository.getAllReports$());
   }
 
   /**
@@ -33,25 +33,25 @@ export class ReportFacade {
    * @param photo - An optional photo file of the swarm.
    * @returns A promise resolving to the created report response.
    */
-  public async createReport(description: string, latitude: number, longitude: number, photo?: File): Promise<ReportResponseDto> {
+  public createReport(description: string, latitude: number, longitude: number, photo?: File): Promise<ReportResponseDto> {
     const formData = new FormData();
     formData.append('description', description);
-    formData.append('latitude', latitude.toString());
-    formData.append('longitude', longitude.toString());
+    formData.append('latitude', latitude.toFixed(14));
+    formData.append('longitude', longitude.toFixed(14));
 
     if (photo) {
       formData.append('photo', photo);
     }
 
-    return await firstValueFrom(this._reportRepository.createReport$(formData));
+    return firstValueFrom(this._reportRepository.createReport$(formData));
   }
 
   /**
    * Retrieves all swarm reports belonging to the currently authenticated user.
    * @returns A promise resolving to an array of the user's report response objects.
    */
-  public async getReportsByUser(): Promise<ReportResponseDto[] | null> {
-    return await firstValueFrom(this._reportRepository.getReportsByUser$());
+  public getReportsByUser(): Promise<ReportResponseDto[] | null> {
+    return firstValueFrom(this._reportRepository.getReportsByUser$());
   }
 
   /**
@@ -60,8 +60,8 @@ export class ReportFacade {
    * @param status - The request payload containing the new status.
    * @returns A promise resolving to the updated report response.
    */
-  public async changeReportStatusById(id: number, status: ChangeReportStatusRequestDto): Promise<ChangeReportStatusResponseDto> {
-    return await firstValueFrom(this._reportRepository.changeReportStatusById$(id, status));
+  public changeReportStatusById(id: number, status: ChangeReportStatusRequestDto): Promise<ChangeReportStatusResponseDto> {
+    return firstValueFrom(this._reportRepository.changeReportStatusById$(id, status));
   }
 
   /**
@@ -69,8 +69,8 @@ export class ReportFacade {
    * @param id - The ID of the report to delete.
    * @returns A promise that resolves when the deletion is complete.
    */
-  public async deleteReport(id: number): Promise<void> {
-    return await firstValueFrom(this._reportRepository.deleteReport$(id));
+  public deleteReport(id: number): Promise<void> {
+    return firstValueFrom(this._reportRepository.deleteReport$(id));
   }
 
   /**
@@ -78,8 +78,8 @@ export class ReportFacade {
    * @param id - The ID of the report to take over.
    * @returns A promise that resolves when the take-over is complete.
    */
-  public async takeOverReport(id: number): Promise<void> {
-    return await firstValueFrom(this._reportRepository.takeOverReport$(id));
+  public takeOverReport(id: number): Promise<void> {
+    return firstValueFrom(this._reportRepository.takeOverReport$(id));
   }
 
   /**
@@ -87,7 +87,7 @@ export class ReportFacade {
    * @param id - The ID of the report to disassociate from the beekeeper.
    * @returns A promise that resolves when the removal is complete.
    */
-  public async removeSwarmFromBeekeeperById(id: number): Promise<void> {
-    return await firstValueFrom(this._reportRepository.removeSwarmFromBeekeeperById$(id));
+  public removeSwarmFromBeekeeperById(id: number): Promise<void> {
+    return firstValueFrom(this._reportRepository.removeSwarmFromBeekeeperById$(id));
   }
 }

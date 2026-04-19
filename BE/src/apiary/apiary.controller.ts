@@ -48,8 +48,8 @@ export class ApiaryController {
     description: `Messages:
   - { type: 'INVALID_REQUEST', code: 'INVALID_REQUEST' }`,
   })
-  public async createApiary(@Req() req: AuthenticatedUserRequest, @Body() dto: ApiaryCreateRequestDto): Promise<ApiaryCreateResponseDto> {
-    return await this._apiaryService.createApiary(req.user.id, dto);
+  public createApiary(@Req() req: AuthenticatedUserRequest, @Body() dto: ApiaryCreateRequestDto): Promise<ApiaryCreateResponseDto> {
+    return this._apiaryService.createApiary(req.user.id, dto);
   }
 
   /**
@@ -66,8 +66,8 @@ export class ApiaryController {
     type: [ApiaryCreateResponseDto],
     description: 'List of apiaries belonging to the authenticated user.',
   })
-  public async getApiariesByUser(@Req() req: AuthenticatedUserRequest): Promise<ApiaryCreateResponseDto[]> {
-    return await this._apiaryService.getApiariesByUser(req.user.id);
+  public getApiariesByUser(@Req() req: AuthenticatedUserRequest): Promise<ApiaryCreateResponseDto[]> {
+    return this._apiaryService.getApiariesByUser(req.user.id);
   }
 
   /**
@@ -94,7 +94,7 @@ export class ApiaryController {
     description: `Messages:
   - { type: 'APIARY_NOT_FOUND', code: 'APIARY_NOT_FOUND' }`,
   })
-  public async removeApiaryFromUserById(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number): Promise<void> {
-    return await this._apiaryService.removeApiaryFromUserById(req.user.id, id);
+  public removeApiaryFromUserById(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this._apiaryService.removeApiaryFromUserById(req.user.id, id);
   }
 }

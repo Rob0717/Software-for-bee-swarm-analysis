@@ -32,7 +32,7 @@ export class LocationController {
     type: NominatimResultResponseDto,
     isArray: true,
   })
-  public async search(@Query('searchQuery') searchQuery: string): Promise<NominatimResultResponseDto[]> {
+  public search(@Query('searchQuery') searchQuery: string): Promise<NominatimResultResponseDto[]> {
     return this._locationService.search(searchQuery);
   }
 
@@ -63,7 +63,7 @@ export class LocationController {
     description: 'Returns the address corresponding to the given coordinates.',
     type: NominatimResultResponseDto,
   })
-  public async reverse(@Query('lat', ParseFloatPipe) lat: number, @Query('lon', ParseFloatPipe) lon: number): Promise<NominatimResultResponseDto> {
+  public reverse(@Query('lat', ParseFloatPipe) lat: number, @Query('lon', ParseFloatPipe) lon: number): Promise<NominatimResultResponseDto> {
     return this._locationService.reverseGeocode(lat, lon);
   }
 }

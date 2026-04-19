@@ -46,8 +46,8 @@ export class ReportService {
     const report = this._reportRepository.create({
       // Normalize and strip combining diacritical marks to sanitize user input
       description: sanitizeString(createReportRequestBody.description),
-      latitude: createReportRequestBody.latitude,
-      longitude: createReportRequestBody.longitude,
+      latitude: Number(Number(createReportRequestBody.latitude).toFixed(14)),
+      longitude: Number(Number(createReportRequestBody.longitude).toFixed(14)),
       photoUrl: createReportRequestBody.photoUrl,
     });
 

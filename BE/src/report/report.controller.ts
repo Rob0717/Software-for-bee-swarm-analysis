@@ -75,9 +75,9 @@ export class ReportController {
     description: `Messages:
   - { type: 'INVALID_REQUEST', code: 'INVALID_REQUEST' } — description out of allowed length range`,
   })
-  public async createReport(@Body() createReportRequestBody: CreateReportInterface, @UploadedFile() file: Express.Multer.File): Promise<void> {
+  public createReport(@Body() createReportRequestBody: CreateReportInterface, @UploadedFile() file: Express.Multer.File): Promise<void> {
     const photoUrl = file?.filename;
-    return await this._reportService.createReport({...createReportRequestBody, photoUrl});
+    return this._reportService.createReport({...createReportRequestBody, photoUrl});
   }
 
   /**
@@ -95,8 +95,8 @@ export class ReportController {
     type: [ReportResponseDto],
     description: 'List of all swarm reports.',
   })
-  public async getAllReports(): Promise<ReportResponseDto[]> {
-    return await this._reportService.getAllReports();
+  public getAllReports(): Promise<ReportResponseDto[]> {
+    return this._reportService.getAllReports();
   }
 
   /**
@@ -120,7 +120,7 @@ export class ReportController {
   - { type: 'USER_NOT_FOUND', code: 'USER_NOT_FOUND' }
   - { type: 'REPORT_NOT_FOUND', code: 'REPORT_NOT_FOUND' }`,
   })
-  public async changeReportStatusById(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number, @Body() dto: ChangeReportStatusRequestDto): Promise<ChangeReportStatusResponseDto> {
+  public changeReportStatusById(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number, @Body() dto: ChangeReportStatusRequestDto): Promise<ChangeReportStatusResponseDto> {
     return this._reportService.changeReportStatusById(req.user.id, id, dto);
   }
 
@@ -142,7 +142,7 @@ export class ReportController {
     description: `Messages:
   - { type: 'USER_NOT_FOUND', code: 'USER_NOT_FOUND' }`,
   })
-  public async getReportsByUser(@Req() req: AuthenticatedUserRequest): Promise<ReportResponseDto[]> {
+  public getReportsByUser(@Req() req: AuthenticatedUserRequest): Promise<ReportResponseDto[]> {
     return this._reportService.getReportsByUser(req.user.id);
   }
 
@@ -194,7 +194,7 @@ export class ReportController {
   - { type: 'ALREADY_ASSIGNED', code: 'ALREADY_ASSIGNED' } — report is already assigned to another beekeeper
   - { type: 'INVALID_REQUEST', code: 'INVALID_REQUEST' } — report is already assigned to this beekeeper`,
   })
-  public async takeOverReport(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number): Promise<void> {
+  public takeOverReport(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number): Promise<void> {
     return this._reportService.takeOverReport(req.user.id, id);
   }
 
@@ -221,7 +221,7 @@ export class ReportController {
     description: `Messages:
   - { type: 'INVALID_REQUEST', code: 'INVALID_REQUEST' } — report is not assigned to this beekeeper`,
   })
-  public async removeReportFromUser(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number): Promise<void> {
+  public removeReportFromUser(@Req() req: AuthenticatedUserRequest, @Param('id', ParseIntPipe) id: number): Promise<void> {
     return this._reportService.removeReportFromUser(req.user.id, id);
   }
 }

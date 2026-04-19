@@ -121,8 +121,8 @@ export class AuthFacade implements OnDestroy {
    * @param address - Optional address.
    * @returns A promise resolving to the registration response.
    */
-  public async register(name: string, surname: string, email: string, password: string, language: string, latitude: number, longitude: number, phoneNumber?: string, address?: string): Promise<UserResponseDto> {
-    return await firstValueFrom(this._authRepository.register$({name, surname, email, password, language, latitude, longitude, phoneNumber, address}));
+  public register(name: string, surname: string, email: string, password: string, language: string, latitude: number, longitude: number, phoneNumber?: string, address?: string): Promise<UserResponseDto> {
+    return firstValueFrom(this._authRepository.register$({name, surname, email, password, language, latitude, longitude, phoneNumber, address}));
   }
 
   /**
@@ -130,8 +130,8 @@ export class AuthFacade implements OnDestroy {
    * @param token - The account confirmation token.
    * @returns A promise resolving to the confirmation response.
    */
-  public async confirmAccount(token: string): Promise<UserVerifyAccountResponseDto> {
-    return await firstValueFrom(this._authRepository.confirmAccount$(token));
+  public confirmAccount(token: string): Promise<UserVerifyAccountResponseDto> {
+    return firstValueFrom(this._authRepository.confirmAccount$(token));
   }
 
   /**
@@ -140,8 +140,8 @@ export class AuthFacade implements OnDestroy {
    * @param language - The preferred language for the reset email.
    * @returns A promise resolving when the request completes.
    */
-  public async forgottenPassword(email: string, language: string): Promise<TypeCodeResponseDto> {
-    return await firstValueFrom(this._authRepository.forgottenPassword$(email, language));
+  public forgottenPassword(email: string, language: string): Promise<TypeCodeResponseDto> {
+    return firstValueFrom(this._authRepository.forgottenPassword$(email, language));
   }
 
   /**
@@ -150,8 +150,8 @@ export class AuthFacade implements OnDestroy {
    * @param password - The new password to set.
    * @returns A promise resolving to the update response.
    */
-  public async setNewPassword(token: string, password: string): Promise<TypeCodeResponseDto> {
-    return await firstValueFrom(this._authRepository.setNewPassword$(token, password));
+  public setNewPassword(token: string, password: string): Promise<TypeCodeResponseDto> {
+    return firstValueFrom(this._authRepository.setNewPassword$(token, password));
   }
 
   /**
@@ -159,8 +159,8 @@ export class AuthFacade implements OnDestroy {
    * @param token - The token to validate.
    * @returns A promise resolving to the validation response.
    */
-  public async validateSetNewPasswordToken(token: string): Promise<ValidateSetNewPasswordResponseDto> {
-    return await firstValueFrom(this._authRepository.validateSetNewPasswordToken$(token));
+  public validateSetNewPasswordToken(token: string): Promise<ValidateSetNewPasswordResponseDto> {
+    return firstValueFrom(this._authRepository.validateSetNewPasswordToken$(token));
   }
 
   /**

@@ -413,8 +413,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const result = event.value as NominatimResultResponseDto;
-    const lat = parseFloat(result.lat);
-    const lon = parseFloat(result.lon);
+    const lat = Number(Number(result.lat).toFixed(14));
+    const lon = Number(Number(result.lon).toFixed(14));
 
     if (!this.config.allowMultipleMarkers) {
       this._clearMarkers();
@@ -481,8 +481,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const lat = Number(position.coords.latitude.toFixed(6));
-        const lon = Number(position.coords.longitude.toFixed(6));
+        const lat = Number(position.coords.latitude.toFixed(14));
+        const lon = Number(position.coords.longitude.toFixed(14));
         this._addLocation({address: '', latitude: lat, longitude: lon, displayName: ''});
         this._reverseGeocode(lat, lon);
         this.loadingCurrentLocation = false;

@@ -20,16 +20,16 @@ export class ApiaryFacade {
    * @param dto - The request payload containing the apiary details.
    * @returns A promise resolving to the created apiary data.
    */
-  public async createApiary(dto: ApiaryCreateRequestDto): Promise<ApiaryCreateResponseDto> {
-    return await firstValueFrom(this._apiaryRepository.createApiary$(dto));
+  public createApiary(dto: ApiaryCreateRequestDto): Promise<ApiaryCreateResponseDto> {
+    return firstValueFrom(this._apiaryRepository.createApiary$(dto));
   }
 
   /**
    * Retrieves all apiaries belonging to the currently authenticated user.
    * @returns A promise resolving to an array of the user's apiaries.
    */
-  public async getApiariesByUser(): Promise<ApiaryCreateResponseDto[]> {
-    return await firstValueFrom(this._apiaryRepository.getApiariesByUser$());
+  public getApiariesByUser(): Promise<ApiaryCreateResponseDto[]> {
+    return firstValueFrom(this._apiaryRepository.getApiariesByUser$());
   }
 
   /**
@@ -37,7 +37,7 @@ export class ApiaryFacade {
    * @param id - The ID of the apiary to delete.
    * @returns A promise that resolves when the deletion is complete.
    */
-  public async deleteApiaryFromUserById(id: number): Promise<void> {
-    return await firstValueFrom(this._apiaryRepository.deleteApiaryFromUserById$(id));
+  public deleteApiaryFromUserById(id: number): Promise<void> {
+    return firstValueFrom(this._apiaryRepository.deleteApiaryFromUserById$(id));
   }
 }

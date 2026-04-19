@@ -60,8 +60,8 @@ export class UserService {
    * Returns all users with the BEEKEEPER role.
    * @returns A promise resolving to an array of beekeeper user entities.
    */
-  public async findAllBeekeepers(): Promise<UserEntity[]> {
-    return await this._userRepository.find({where: {role: UserRole.BEEKEEPER}});
+  public findAllBeekeepers(): Promise<UserEntity[]> {
+    return this._userRepository.find({where: {role: UserRole.BEEKEEPER}});
   }
 
   /**

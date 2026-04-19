@@ -29,6 +29,8 @@ export class ApiaryService {
       throw new BadRequestException({type: 'INVALID_REQUEST', code: 'INVALID_REQUEST'});
     }
 
+    dto.latitude = Number(dto.latitude.toFixed(14));
+    dto.longitude = Number(dto.longitude.toFixed(14));
     const apiary = this._apiaryRepository.create(dto);
     const user = await this._userService.findOne(userId);
     if (!user) {
@@ -104,7 +106,7 @@ export class ApiaryService {
    * Retrieves all apiaries created by non-banned users.
    * @returns A promise resolving to an array of apiary entities with their owner relations loaded.
    */
-  public async getAllApiaries(): Promise<ApiaryEntity[]> {
+  public getAllApiaries(): Promise<ApiaryEntity[]> {
     return this._apiaryRepository.find({
       where: {
         createdBy: {banned: false},

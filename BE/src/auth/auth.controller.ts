@@ -52,7 +52,7 @@ export class AuthController {
     type: UserLoggedInResponseDto,
     description: 'Returns user login status.',
   })
-  public async isUserLoggedIn(@Req() request: PossiblyAuthenticatedRequestInterface, @Res({passthrough: true}) res: Response): Promise<UserLoggedInResponseDto> {
+  public isUserLoggedIn(@Req() request: PossiblyAuthenticatedRequestInterface, @Res({passthrough: true}) res: Response): Promise<UserLoggedInResponseDto> {
     return this._authService.isUserLoggedInFromRequest(request, res);
   }
 
@@ -78,8 +78,8 @@ export class AuthController {
     description: `Messages:
   - { type: 'FORBIDDEN_BANNED_ACCESS', code: 'FORBIDDEN_BANNED_ACCESS' }`,
   })
-  public async login(@Body() dto: UserLoginRequestDto, @Res({passthrough: true}) res: Response): Promise<void> {
-    return await this._authService.login(res, dto);
+  public login(@Body() dto: UserLoginRequestDto, @Res({passthrough: true}) res: Response): Promise<void> {
+    return this._authService.login(res, dto);
   }
 
   /**
@@ -118,7 +118,7 @@ export class AuthController {
     description: `Messages:
   - { type: 'REGISTRATION_FAILED', code: 'REGISTRATION_FAILED' }`,
   })
-  public async register(@Body() dto: UserRegisterRequestDto): Promise<UserResponseDto> {
+  public register(@Body() dto: UserRegisterRequestDto): Promise<UserResponseDto> {
     return this._authService.register(dto);
   }
 
@@ -144,7 +144,7 @@ export class AuthController {
     description: `Messages:
   - { type: 'USER_NOT_FOUND', code: 'USER_NOT_FOUND' }`,
   })
-  public async confirm(@Query('token') token: string): Promise<UserVerifyAccountResponseDto> {
+  public confirm(@Query('token') token: string): Promise<UserVerifyAccountResponseDto> {
     return this._authService.validateConfirmationToken(token);
   }
 
@@ -170,8 +170,8 @@ export class AuthController {
     description: `Messages:
   - { type: 'EMAIL_SEND_ERROR', code: 'EMAIL_SEND_ERROR' }`,
   })
-  public async handleForgottenPassword(@Query('email') email: string, @Query('lang') language: string): Promise<TypeCodeResponseDto> {
-    return await this._authService.handleForgottenPassword(email, language);
+  public handleForgottenPassword(@Query('email') email: string, @Query('lang') language: string): Promise<TypeCodeResponseDto> {
+    return this._authService.handleForgottenPassword(email, language);
   }
 
   /**
@@ -197,8 +197,8 @@ export class AuthController {
     description: `Messages:
   - { type: 'USER_NOT_FOUND', code: 'USER_NOT_FOUND' }`,
   })
-  public async setNewPassword(@Body() dto: SetNewPasswordRequestDto): Promise<TypeCodeResponseDto> {
-    return await this._authService.setNewPassword(dto);
+  public setNewPassword(@Body() dto: SetNewPasswordRequestDto): Promise<TypeCodeResponseDto> {
+    return this._authService.setNewPassword(dto);
   }
 
   /**
@@ -214,8 +214,8 @@ export class AuthController {
     type: ValidateSetNewPasswordResponseDto,
     description: 'Returns whether the token is valid.',
   })
-  public async validateSetPasswordToken(@Body() dto: ValidateSetNewPasswordRequestDto): Promise<ValidateSetNewPasswordResponseDto> {
-    return await this._authService.validateSetPasswordToken(dto);
+  public validateSetPasswordToken(@Body() dto: ValidateSetNewPasswordRequestDto): Promise<ValidateSetNewPasswordResponseDto> {
+    return this._authService.validateSetPasswordToken(dto);
   }
 
   /**

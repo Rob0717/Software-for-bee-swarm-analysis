@@ -193,7 +193,7 @@ export class ProfileComponent implements OnInit {
    * @param reportId - The ID of the report to update.
    * @param status - The new status to apply.
    */
-  public async onReportStatusChange(reportId: number, status: ReportStatus): Promise<void> {
+  public onReportStatusChange(reportId: number, status: ReportStatus): void {
     const key = reportId.toString();
 
     this.selectedReportStatuses.update(current => ({
@@ -201,7 +201,7 @@ export class ProfileComponent implements OnInit {
       [key]: status
     }));
 
-    await this._changeReportStatus(reportId)
+    this._changeReportStatus(reportId)
       .then(() => {
         this._alertService.showAlert({
           severity: 'success',

@@ -36,8 +36,8 @@ export class LocationRepository {
    */
   public reverseGeocode$(lat: number, lon: number): Observable<NominatimResultResponseDto> {
     const params = new HttpParams()
-      .set('lat', lat.toString())
-      .set('lon', lon.toString());
+      .set('lat', lat.toFixed(14))
+      .set('lon', lon.toFixed(14));
 
     return this._httpClient.get<NominatimResultResponseDto>(
       `${environment.apiUrl}/location/reverse`,

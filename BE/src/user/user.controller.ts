@@ -76,7 +76,7 @@ export class UserController {
     description: `Messages:
   - { type: 'USER_NOT_FOUND', code: 'USER_NOT_FOUND' }`,
   })
-  public async manageUserAccess(@Req() req: AuthenticatedUserRequest, @Body() dto: ManageUserAccessRequestDto, @Param('id', ParseIntPipe) id: number): Promise<void> {
+  public manageUserAccess(@Req() req: AuthenticatedUserRequest, @Body() dto: ManageUserAccessRequestDto, @Param('id', ParseIntPipe) id: number): Promise<void> {
     return this._userService.manageUserAccess(req.user.id, dto, id);
   }
 }

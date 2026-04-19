@@ -215,7 +215,7 @@ export class CreateReportComponent implements OnInit {
    * Otherwise, navigates to the home page immediately.
    * @param event - The mouse event used to anchor the confirmation dialog.
    */
-  public async cancel(event: MouseEvent): Promise<void> {
+  public cancel(event: MouseEvent): void {
     if (this.reportForm.dirty || this.reportForm.get('latitude')?.value || this._selectedPhoto) {
       this._alertService.confirmAlert({
         target: event.target as EventTarget,

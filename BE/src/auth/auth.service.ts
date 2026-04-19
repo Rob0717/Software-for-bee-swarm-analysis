@@ -87,6 +87,9 @@ export class AuthService {
       throw new InternalServerErrorException({type: 'REGISTRATION_FAILED', code: 'REGISTRATION_FAILED'});
     }
 
+    userRegisterDto.latitude = Number(userRegisterDto.latitude.toFixed(14));
+    userRegisterDto.longitude = Number(userRegisterDto.longitude.toFixed(14));
+
     const hashedPassword = await bcrypt.hash(userRegisterDto.password, 10);
     const user = this._userService.createOne({...userRegisterDto, password: hashedPassword});
 

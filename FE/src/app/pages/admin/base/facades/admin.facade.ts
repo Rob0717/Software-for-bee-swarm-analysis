@@ -19,8 +19,8 @@ export class AdminFacade {
    * Retrieves a list of all registered beekeepers.
    * @returns A promise resolving to an array of beekeeper user objects.
    */
-  public async getAllBeekeepers(): Promise<UserResponseDto[]> {
-    return await firstValueFrom(this._adminRepository.getAllBeekeepers$());
+  public getAllBeekeepers(): Promise<UserResponseDto[]> {
+    return firstValueFrom(this._adminRepository.getAllBeekeepers$());
   }
 
   /**
@@ -29,7 +29,7 @@ export class AdminFacade {
    * @param dto - The request payload containing the new access settings.
    * @returns A promise resolving to the updated user access.
    */
-  public async manageUserAccess(id: number, dto: ManageUserAccessRequestDto): Promise<void> {
-    return await firstValueFrom(this._adminRepository.manageUserAccess$(id, dto));
+  public manageUserAccess(id: number, dto: ManageUserAccessRequestDto): Promise<void> {
+    return firstValueFrom(this._adminRepository.manageUserAccess$(id, dto));
   }
 }
