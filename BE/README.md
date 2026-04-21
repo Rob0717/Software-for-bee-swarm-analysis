@@ -204,7 +204,7 @@ Email notifications support **Czech** (`cs`) and **English** (`en`). Translation
 | `DB_PASSWORD`                        | —       | Database password                               |
 | `MYSQL_ROOT_PASSWORD`                | —       | MariaDB root password (Docker only)             |
 | `JWT_ACCESS_SECRET`                  | —       | Secret for signing access tokens                |
-| `JWT_ACCESS_SECRET_DURATION`         | `4h`    | Access token expiry                             |
+| `JWT_ACCESS_SECRET_DURATION`         | `1h`    | Access token expiry                             |
 | `JWT_ACCOUNT_VERIFY_SECRET`          | —       | Secret for account confirmation tokens          |
 | `JWT_ACCOUNT_VERIFY_SECRET_DURATION` | `1h`    | Account confirmation token expiry               |
 | `JWT_RESET_PASSWORD_SECRET`          | —       | Secret for password reset tokens                |
