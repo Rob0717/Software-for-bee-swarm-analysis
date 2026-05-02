@@ -1,0 +1,305 @@
+<div class="bg-gradient-to-b from-yellow-50 to-white dark:from-gray-900 dark:to-gray-800">
+  <div class="container mx-auto px-4 py-16 md:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="text-center lg:text-left">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          {{ 'home.hero.title' | transloco }}
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
+          {{ 'home.hero.subtitle' | transloco }}
+        </p>
+
+        @if (isUserLoggedIn) {
+          <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <p-button
+              label="{{ 'home.actions.report' | transloco }}"
+              icon="pi pi-plus-circle"
+              routerLink="/reports/create"
+              size="large"
+              styleClass="px-6"
+            ></p-button>
+
+            @if (this.user?.role === UserRoleEnum.ADMIN) {
+              <p-button
+                label="{{ 'home.actions.adminUsers' | transloco }}"
+                icon="pi pi-list"
+                routerLink="/admin/users"
+                size="large"
+                severity="secondary"
+                [outlined]="true"
+                styleClass="px-6"
+              ></p-button>
+            }
+
+            @if (this.user?.role === UserRoleEnum.BEEKEEPER) {
+              <p-button
+                label="{{ 'home.actions.myReports' | transloco }}"
+                icon="pi pi-list"
+                size="large"
+                (onClick)="this._profileTabService.openProfileTab(ProfileTabEnum.MY_ACTIVE_SWARMS)"
+                severity="secondary"
+                [outlined]="true"
+                styleClass="px-6"
+              ></p-button>
+            }
+          </div>
+        } @else {
+          <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <p-button
+              label="{{ 'home.actions.report' | transloco }}"
+              icon="pi pi-plus-circle"
+              routerLink="/reports/create"
+              size="large"
+              styleClass="px-6"
+            ></p-button>
+
+            <p-button
+              label="{{ 'home.actions.login' | transloco }}"
+              icon="pi pi-users"
+              routerLink="/auth/login"
+              size="large"
+              severity="secondary"
+              [outlined]="true"
+            ></p-button>
+          </div>
+        }
+      </div>
+
+      <div class="flex justify-center">
+        <div class="relative">
+          <div
+            class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-yellow-400 dark:bg-yellow-600 opacity-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse"
+          ></div>
+
+          <p-image
+            src="assets/logo.svg"
+            class="relative z-10"
+            width="300"
+          ></p-image>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-16 bg-white dark:bg-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        {{ 'home.features.title' | transloco }}
+      </h2>
+
+      <p class="text-lg text-gray-600 dark:text-gray-300">
+        {{ 'home.features.subtitle' | transloco }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <p-card class="h-full">
+        <ng-template pTemplate="header">
+          <div class="p-6 pb-0">
+            <div class="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mb-4">
+              <i class="pi pi-map-marker text-3xl text-yellow-600 dark:text-yellow-400"></i>
+            </div>
+          </div>
+        </ng-template>
+        <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {{ 'home.features.items.localization.title' | transloco }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          {{ 'home.features.items.localization.description' | transloco }}
+        </p>
+      </p-card>
+
+      <p-card class="h-full">
+        <ng-template pTemplate="header">
+          <div class="p-6 pb-0">
+            <div class="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mb-4">
+              <i class="pi pi-users text-3xl text-yellow-600 dark:text-yellow-400"></i>
+            </div>
+          </div>
+        </ng-template>
+        <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {{ 'home.features.items.community.title' | transloco }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          {{ 'home.features.items.community.description' | transloco }}
+        </p>
+      </p-card>
+
+      <p-card class="h-full">
+        <ng-template pTemplate="header">
+          <div class="p-6 pb-0">
+            <div class="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mb-4">
+              <i class="pi pi-bell text-3xl text-yellow-600 dark:text-yellow-400"></i>
+            </div>
+          </div>
+        </ng-template>
+        <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {{ 'home.features.items.notifications.title' | transloco }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          {{ 'home.features.items.notifications.description' | transloco }}
+        </p>
+      </p-card>
+
+      <p-card class="h-full">
+        <ng-template pTemplate="header">
+          <div class="p-6 pb-0">
+            <div class="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mb-4">
+              <i class="pi pi-chart-line text-3xl text-yellow-600 dark:text-yellow-400"></i>
+            </div>
+          </div>
+        </ng-template>
+        <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {{ 'home.features.items.analytics.title' | transloco }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          {{ 'home.features.items.analytics.description' | transloco }}
+        </p>
+      </p-card>
+
+      <p-card class="h-full">
+        <ng-template pTemplate="header">
+          <div class="p-6 pb-0">
+            <div class="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mb-4">
+              <i class="pi pi-mobile text-3xl text-yellow-600 dark:text-yellow-400"></i>
+            </div>
+          </div>
+        </ng-template>
+        <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {{ 'home.features.items.mobile.title' | transloco }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          {{ 'home.features.items.mobile.description' | transloco }}
+        </p>
+      </p-card>
+
+      <p-card class="h-full">
+        <ng-template pTemplate="header">
+          <div class="p-6 pb-0">
+            <div class="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mb-4">
+              <i class="pi pi-shield text-3xl text-yellow-600 dark:text-yellow-400"></i>
+            </div>
+          </div>
+        </ng-template>
+        <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {{ 'home.features.items.security.title' | transloco }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          {{ 'home.features.items.security.description' | transloco }}
+        </p>
+      </p-card>
+    </div>
+  </div>
+</div>
+
+<div class="py-16 bg-yellow-50 dark:bg-gray-850">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <p-card class="border-2 border-yellow-400 dark:border-yellow-600">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-full bg-yellow-400 dark:bg-yellow-600 flex items-center justify-center">
+                <i class="pi pi-exclamation-triangle text-white text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                {{ 'home.report.title' | transloco }}
+              </h3>
+            </div>
+
+            <p class="text-gray-600 dark:text-gray-300 mb-6">
+              {{ 'home.report.subtitle' | transloco }}
+            </p>
+
+            <div class="flex flex-wrap gap-3">
+              <p-button
+                label="{{ 'home.actions.report' | transloco }}"
+                icon="pi pi-plus-circle"
+                routerLink="/reports/create"
+                size="large"
+                styleClass="px-6"
+              ></p-button>
+            </div>
+
+            @if (!isUserLoggedIn) {
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">
+                <i class="pi pi-lightbulb"></i>
+                {{ 'home.report.tip' | transloco }}
+              </p>
+            }
+          </div>
+
+          <div class="flex justify-center">
+            <div class="relative">
+              <div
+                class="w-48 h-48 rounded-full bg-yellow-400 dark:bg-yellow-600 opacity-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              ></div>
+
+              <div class="relative z-10 text-center">
+                <i class="pi pi-map-marker text-yellow-600 dark:text-yellow-400" style="font-size: 8rem;"></i>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 font-semibold">
+                  {{ 'home.report.badge' | transloco }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>
+
+<div class="py-16 bg-gradient-to-r from-yellow-400 to-yellow-500 dark:from-yellow-600 dark:to-yellow-700">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      @if (isUserLoggedIn) {
+        {{ 'home.join.title.loggedIn' | transloco }}
+      } @else {
+        {{ 'home.join.title.guest' | transloco }}
+      }
+    </h2>
+
+    <p class="text-lg text-gray-800 dark:text-gray-100 mb-8 max-w-2xl mx-auto">
+      @if (isUserLoggedIn) {
+        {{ 'home.join.subtitle.loggedIn' | transloco }}
+      } @else {
+        {{ 'home.join.subtitle.guest' | transloco }}
+      }
+    </p>
+
+    @if (!isUserLoggedIn) {
+      <div class="flex gap-4 justify-center flex-wrap">
+        <p-button
+          label="{{ 'home.join.actions.register' | transloco }}"
+          icon="pi pi-user-plus"
+          iconPos="right"
+          routerLink="/auth/register"
+          size="large"
+          severity="secondary"
+          styleClass="bg-white text-yellow-600 hover:bg-gray-100 border-none px-8"
+        ></p-button>
+
+        <p-button
+          label="{{ 'home.join.actions.login' | transloco }}"
+          icon="pi pi-sign-in"
+          routerLink="/auth/login"
+          size="large"
+          [outlined]="false"
+          severity="success"
+          styleClass="border-2 border-white text-white hover:bg-white/10 px-6"
+        ></p-button>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="py-8 bg-gray-900 text-white">
+  <div class="container mx-auto px-4 text-center">
+    <p class="text-gray-400">
+      {{ 'home.footer.message' | transloco }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="flex flex-col gap-4">
+  @if (config.showSearch) {
+    <div class="flex items-center gap-2">
+      <p-autoComplete
+        #autoComplete
+        [(ngModel)]="selectedAddress"
+        [suggestions]="suggestions"
+        (onSelect)="onAddressSelect($event)"
+        [placeholder]="'location.search.placeholder' | transloco "
+        [showClear]="true"
+        (onClear)="clearLocation()"
+        (onDropdownClick)="onDropdownClick()"
+        [minlength]="3"
+        [maxlength]="300"
+        (keydown.enter)="performSearch()"
+        class="w-full"
+        inputStyleClass="w-full relative"
+        optionLabel="display_name"
+        [dropdown]="true"
+        [panelStyle]="{overflow: 'auto', position: 'absolute', left: '0', right: '0'}"
+      >
+        <ng-template pTemplate="empty">{{ 'location.search.no_results' | transloco }}</ng-template>
+        <ng-template let-result pTemplate="item">
+          <i class="pi pi-map-marker text-primary mt-1 flex-shrink-0"></i>
+          <p class="truncate" title="{{ result.display_name }}">{{ result.display_name }}</p>
+        </ng-template>
+      </p-autoComplete>
+
+      <p-button
+        icon="pi pi-search"
+        [loading]="searchLoading"
+        (onClick)="performSearch()"
+        severity="primary"
+        size="small"
+        [rounded]="true"
+        pTooltip="{{ 'location.search.button' | transloco }}"
+        tooltipPosition="top"
+      ></p-button>
+
+      @if (selectedLocation || selectedLocations.length > 0) {
+        <p-button
+          icon="pi pi-times"
+          (onClick)="clearLocation()"
+          severity="danger"
+          [outlined]="true"
+          size="small"
+          [rounded]="true"
+          pTooltip="{{ 'location.clear.button' | transloco }}"
+          tooltipPosition="top"
+        ></p-button>
+      }
+    </div>
+
+    @if (searchError) {
+      <p-message severity="warn" size="small" variant="outlined">
+        {{ 'location.search.error' | transloco }}
+      </p-message>
+    }
+  }
+
+  <div
+    #mapContainer
+    class="w-full rounded-lg border border-gray-300 shadow-sm overflow-hidden"
+    [style.height]="mapHeight"
+  ></div>
+
+  @if (config.showChosenLocation) {
+    <div class="flex flex-wrap gap-4">
+      @if (config.showCurrentLocation) {
+        <p-button
+          icon="pi pi-crosshair"
+          [label]="'location.current.button' | transloco"
+          (onClick)="getCurrentLocation()"
+          [loading]="loadingCurrentLocation"
+          [disabled]="selectedLocation"
+          severity="secondary"
+          size="small"
+        ></p-button>
+      }
+
+      @if (geolocationError) {
+        <p-message severity="error" size="small" variant="outlined" [life]="3000">
+          {{ 'location.geolocation.error' | transloco }}
+        </p-message>
+      }
+    </div>
+
+    @if (selectedLocation && !config.allowMultipleMarkers) {
+      <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+        <div class="flex items-start gap-2">
+          <i class="pi pi-info-circle text-blue-600 mt-1"></i>
+          <div class="flex-1">
+            <p class="font-semibold text-sm text-blue-900 mb-1">
+              {{ 'location.selected.title' | transloco }}
+            </p>
+            <p class="text-sm text-blue-800">{{ selectedLocation.displayName }}</p>
+            <p class="text-xs text-blue-600 mt-1">
+              {{ 'location.coordinates' | transloco }}:
+              {{ selectedLocation.latitude.toFixed(14) }},
+              {{ selectedLocation.longitude.toFixed(14) }}
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (selectedLocations.length > 0 && config.allowMultipleMarkers) {
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <p class="font-semibold text-sm">
+            {{ 'location.selected.multiple' | transloco }}
+            ({{ selectedLocations.length }})
+          </p>
+          @if (selectedLocations.length > 0) {
+            <p-button
+              icon="pi pi-trash"
+              severity="danger"
+              [text]="true"
+              size="small"
+              (onClick)="clearLocation()"
+              pTooltip="{{ 'location.selected.deleteAll' | transloco }}"
+              tooltipPosition="top"
+            ></p-button>
+          }
+        </div>
+
+        @for (location of selectedLocations; track location.latitude + location.longitude) {
+          <div class="bg-blue-50 p-2 rounded-lg border border-blue-200 flex items-start justify-between gap-2">
+            <div class="flex-1 min-w-0">
+              <p class="text-sm text-blue-800 truncate">{{ location.displayName }}</p>
+              <p class="text-xs text-blue-600">
+                {{ location.latitude.toFixed(14) }}, {{ location.longitude.toFixed(14) }}
+              </p>
+            </div>
+            <p-button
+              icon="pi pi-times"
+              [rounded]="true"
+              [text]="true"
+              severity="danger"
+              size="small"
+              (onClick)="removeLocation(location)"
+            ></p-button>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

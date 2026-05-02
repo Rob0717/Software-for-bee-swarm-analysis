@@ -1,0 +1,239 @@
+<div class="page-table-container">
+  <p-table
+    #dt
+    class="reports-table"
+    size="small"
+    [value]="reports()"
+    dataKey="id"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50, 100]"
+    [loading]="loading"
+    [paginator]="true"
+    sortMode="single"
+    [scrollable]="true"
+    scrollHeight="flex"
+    [tableStyle]="{ 'min-width': '75rem' }"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex justify-between">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+          {{ 'reports.title' | transloco }}
+        </h1>
+
+        <p-button
+          label="{{ 'reports.actions.clearFilters' | transloco }}"
+          icon="pi pi-filter-slash"
+          severity="secondary"
+          [outlined]="true"
+          (onClick)="clear(dt)"
+        ></p-button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 120px">{{ 'reports.table.photo' | transloco }}</th>
+        <th style="width: 160px">{{ 'reports.table.coords' | transloco }}</th>
+        <th style="width: 120px">{{ 'reports.table.location' | transloco }}</th>
+        <th>{{ 'reports.table.description' | transloco }}</th>
+
+        <th pSortableColumn="createdAtDate" style="width: 190px">
+          {{ 'reports.table.createdAt' | transloco }}
+          <p-sortIcon field="createdAtDate"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="updatedAtDate" style="width: 190px">
+          {{ 'reports.table.updatedAt' | transloco }}
+          <p-sortIcon field="updatedAtDate"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="assignedKey" style="width: 220px">
+          {{ 'reports.table.assignedTo' | transloco }}
+          <p-sortIcon field="assignedKey"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="statusOrder" style="width: 150px">
+          {{ 'reports.table.status' | transloco }}
+          <p-sortIcon field="statusOrder"></p-sortIcon>
+        </th>
+
+        <th style="width: 110px">{{ 'reports.table.manage' | transloco }}</th>
+      </tr>
+
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+
+        <th>
+          <p-columnFilter
+            type="text"
+            field="description"
+            matchMode="contains"
+            [placeholder]="'reports.filters.descriptionPlaceholder' | transloco"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+
+        <th></th>
+        <th></th>
+
+        <th>
+          <p-columnFilter field="assignedKey" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-filter="filterCallback">
+              <p-multiselect
+                #assignedBeekeepers
+                appendTo="body"
+                [(ngModel)]="assignedFilter"
+                [options]="beekeeperOptions"
+                optionLabel="label"
+                optionValue="value"
+                [placeholder]="'reports.filters.beekeeperPlaceholder' | transloco"
+                [showClear]="false"
+                (onChange)="filter($event.value)"
+                [panelStyle]="{ minWidth: '18rem' }"
+                style="min-width: 16rem"
+              >
+                <ng-template pTemplate="item" let-opt>
+                  @if (opt.labelKey) {
+                    {{ opt.labelKey | transloco }}
+                  } @else {
+                    {{ opt.label }}
+                  }
+                </ng-template>
+
+                <ng-template pTemplate="selectedItems" let-values>
+                  {{ values?.length ? (values.length + '×') : '' }}
+                </ng-template>
+              </p-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter field="status" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-filter="filterCallback">
+              <p-multiselect
+                appendTo="body"
+                [(ngModel)]="statusFilter"
+                [options]="statusOptions"
+                optionValue="value"
+                showHeader="false"
+                [placeholder]="'reports.filters.statusPlaceholder' | transloco"
+                [showClear]="false"
+                (onChange)="filter($event.value)"
+                [panelStyle]="{ minWidth: '16rem' }"
+                style="min-width: 14rem"
+              >
+                <ng-template pTemplate="item" let-opt>
+                  {{ getReportStatusKey(opt.value) | transloco }}
+                </ng-template>
+
+                <ng-template pTemplate="selectedItem" let-opt>
+                  {{ getReportStatusKey(opt.value) | transloco }}
+                </ng-template>
+
+                <ng-template pTemplate="selectedItems" let-values>
+                  {{ values?.length ? (values.length + '×') : '' }}
+                </ng-template>
+              </p-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-report>
+      <tr>
+        <td>
+          @if (report.photoUrl) {
+            <p-image
+              [src]="getReportPhotoUrl(report.photoUrl)"
+              [alt]="'reports.photo.alt' | transloco"
+              imageClass="w-24 h-24 object-cover border border-surface-200 dark:border-surface-700 rounded-border cursor-pointer"
+              [preview]="true"
+            ></p-image>
+          } @else {
+            <div class="w-24 h-24 rounded-border bg-surface-100 dark:bg-surface-800 flex items-center justify-center">
+              <i class="pi pi-image text-3xl text-surface-400"></i>
+            </div>
+          }
+        </td>
+
+        <td>{{ coords(report) }}</td>
+        <td>
+          <p-button
+            (click)="showSwarmLocation(report)"
+            [outlined]="true"
+            icon="pi pi-map-marker"
+          />
+        </td>
+        <td>{{ report.description }}</td>
+        <td>{{ report.createdAtDate | date:'dd.MM.yyyy HH:mm' }}</td>
+        <td>{{ report.updatedAtDate | date:'dd.MM.yyyy HH:mm' }}</td>
+        <td>{{ assignedToFullName(report) }}</td>
+
+        <td>
+          <p-tag
+            [value]="getReportStatusKey(report.status) | transloco"
+            [severity]="getSeverity(report.status)"
+          ></p-tag>
+        </td>
+
+        <td>
+          @if (this.user?.role === UserRoleEnum.BEEKEEPER) {
+            @if (!report.assignedToUserName && !report.assignedToUserSurname) {
+              <p-button
+                icon="pi pi-circle-on"
+                class="text-nowrap"
+                label="{{ 'reports.actions.takeOver' | transloco }}"
+                [text]="true"
+                (onClick)="onControlClick($event, report)"
+              ></p-button>
+            }
+          } @else if (this.user?.role === UserRoleEnum.ADMIN) {
+            <p-button
+              icon="pi pi-times-circle"
+              severity="danger"
+              [text]="true"
+              (onClick)="onControlClick($event, report)"
+            ></p-button>
+          }
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="9">{{ 'reports.empty' | transloco }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog
+    header="{{ 'reports.table.location' | transloco }}"
+    [modal]="true"
+    [(visible)]="showSwarmDialogVisible"
+    [breakpoints]="{'960px': '90vw', '640px': '95vw'}"
+    [style]="{ width: '70vw' }"
+    [contentStyle]="{ 'overflow-y': 'auto' }"
+    draggable="false"
+  >
+    <div class="w-full">
+      @if (showSwarmDialogVisible) {
+        <app-generic-map
+          [config]="{
+            mode: 'display',
+            showMarkerInfo: true,
+            readonly: true,
+            defaultZoom: 7
+          }"
+          [initialLocation]="selectedReport"
+          [mapHeight]="'60dvh'"
+        ></app-generic-map>
+      }
+    </div>
+  </p-dialog>
+</div>

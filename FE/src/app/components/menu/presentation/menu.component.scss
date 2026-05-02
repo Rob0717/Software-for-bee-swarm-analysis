@@ -1,0 +1,41 @@
+/**
+ * Overriding library styles
+ */
+::ng-deep {
+  // Menu items: keep background transparent in all non-hover states
+  .p-menubar-item > .p-menubar-item-content:not(:hover) {
+    background: transparent !important;
+  }
+
+  // Menu items: remove background when focused (clicked) but not hovered
+  .p-menubar-item > .p-menubar-item-content:focus:not(:hover),
+  .p-menubar-item > .p-menubar-item-content.p-focus:not(:hover) {
+    background: transparent !important;
+  }
+
+  // Menu item icons: reset icon color when not hovered
+  .p-menubar-item > .p-menubar-item-content:not(:hover) .p-menubar-item-icon {
+    color: var(--p-menubar-item-icon-color) !important;
+  }
+
+  // Menu item icons: keep default icon color when focused but not hovered
+  .p-menubar-item > .p-menubar-item-content:focus:not(:hover) .p-menubar-item-icon,
+  .p-menubar-item > .p-menubar-item-content.p-focus:not(:hover) .p-menubar-item-icon {
+    color: var(--p-menubar-item-icon-color) !important;
+  }
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  font-size: 10pt;
+}
+
+.logo {
+  cursor: pointer;
+}
