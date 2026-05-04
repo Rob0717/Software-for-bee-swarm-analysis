@@ -1,0 +1,30 @@
+{
+  "email": {
+    "title": "Software pro lokalizaci včelích rojů",
+    "confirmation": {
+      "subject": "Potvrzení registrace",
+      "greeting": "Vítejte",
+      "thank-you": "Děkujeme za registraci. Pro dokončení registrace klikněte na tlačítko níže:",
+      "button": "Potvrdit registraci",
+      "link": "Nebo zkopírujte a vložte tento odkaz do prohlížeče:",
+      "ignore": "Pokud jste se neregistrovali, ignorujte tento email. Odkaz vyprší za {time}."
+    },
+    "password-reset": {
+      "subject": "Reset hesla",
+      "greeting": "Dobrý den",
+      "info": "Obdrželi jsme požadavek na reset vašeho hesla. Klikněte na tlačítko níže pro vytvoření nového hesla:",
+      "button": "Resetovat heslo",
+      "link": "Nebo zkopírujte a vložte tento odkaz do prohlížeče:",
+      "ignore": "Pokud jste nepožadovali reset hesla, ignorujte tento email. Odkaz vyprší za {time}."
+    },
+    "swarm": {
+      "subject": "Zpracování roje",
+      "greeting": "Dobrý den",
+      "info": "V blízkosti Vašeho včelína byl nalezen včelí roj.",
+      "swarm-info": "Popis roje:",
+      "swarm-coordinates": "Souřadnice roje:",
+      "swarm-photo": "Fotografie roje:",
+      "swarm-navigate": "Navigovat k roji lze využitím následujících odkazů:"
+    }
+  }
+}

@@ -1,0 +1,579 @@
+{
+  "menu": {
+    "home": "Domů",
+    "reportsRoot": "Nahlašování rojů",
+    "reportCreate": "Nahlásit roj",
+    "reportList": "Nahlášené roje",
+    "accountRoot": "Účet",
+    "login": "Přihlášení",
+    "logout": "Odhlásit se",
+    "register": "Registrace",
+    "beekeeperRoot": "Včelař",
+    "profile": "Profil",
+    "apiaries": "Stanoviště",
+    "myActiveReports": "Moje aktivní hlášení",
+    "myInactiveReports": "Moje neaktivní hlášení",
+    "adminRoot": "Admin",
+    "adminUsers": "Správa včelařů"
+  },
+  "profile": {
+    "title": "Můj profil",
+    "placeholder": "Žádná data nenalezena.",
+    "role": {
+      "admin": "Admin",
+      "beekeeper": "Včelař"
+    },
+    "tabs": {
+      "my_data": "Moje údaje",
+      "apiaries": "Stanoviště",
+      "my_active_swarms": "Mně přidělené aktivní roje",
+      "my_inactive_swarms": "Mně přidělené vyřízené roje"
+    },
+    "my_data": {
+      "title": "Osobní údaje",
+      "description": "Zde můžete vidět své osobní údaje.",
+      "name": "Jméno",
+      "surname": "Příjmení",
+      "email": "Email",
+      "address": "Adresa",
+      "phone": "Telefon",
+      "role": "Role",
+      "status": "Stav",
+      "verified": "Ověřený",
+      "unverified": "Neověřený"
+    },
+    "apiaries": {
+      "title": "Moje stanoviště",
+      "description": "Zde můžete spravovat svá včelí stanoviště.",
+      "show": {
+        "map": "Zobrazit mapu stanovišť",
+        "add": "Přidat nové stanoviště",
+        "dialog": {
+          "apiaries": {
+            "title": "Přehled všech stanovišť"
+          },
+          "add": {
+            "apiary": {
+              "title": "Přidat nové stanoviště",
+              "name": "Název stanoviště",
+              "radius": "Rádius (km)",
+              "button": {
+                "save": "Uložit",
+                "cancel": "Zrušit"
+              },
+              "success": {
+                "summary": "Úspěch",
+                "detail": "Byla přidáno nové stanoviště"
+              },
+              "delete": {
+                "message": "Opravdu chcete smazat toto stanoviště?",
+                "header": "Potvrzení smazání",
+                "acceptLabel": "Smazat",
+                "rejectLabel": "Zrušit",
+                "success": {
+                  "summary": "Odstraněno",
+                  "detail": "Stanoviště bylo úspěšně odstraněno"
+                }
+              }
+            }
+          }
+        }
+      },
+      "item": {
+        "no_address": "Adresa není uvedena",
+        "latitude": "Zeměpisná šířka",
+        "longitude": "Zeměpisná délka",
+        "id": "ID stanoviště",
+        "delete": "Odstranit"
+      }
+    },
+    "my_swarms": {
+      "change_status_title": "Hlášení upraveno",
+      "change_status_message": "Stav hlášení byl úspěšně upraven",
+      "photo_alt": "Roj",
+      "no_description": "Bez popisu",
+      "latitude": "Zeměpisná šířka",
+      "longitude": "Zeměpisná délka",
+      "remove": {
+        "label": "Vzdát se hlášení",
+        "message": "Opravdu se chcete vzdát tohoto hlášení?",
+        "header": "Potvrzení odebrání",
+        "acceptLabel": "Odebrat",
+        "rejectLabel": "Zrušit",
+        "success": {
+          "summary": "Odebráno",
+          "detail": "Hlášení bylo uživateli úspěšně odebráno"
+        }
+      }
+    },
+    "my_active_swarms": {
+      "title": "Nevyřízené roje",
+      "description": "Zde najdete všechny nevyřízené roje, které Vám byly přiřazeny."
+    },
+    "my_inactive_swarms": {
+      "title": "Vyřízené roje",
+      "description": "Zde najdete všechny vyřízené roje, které Vám byly přiřazeny."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Přihlášení",
+      "button": {
+        "label": "Přihlásit se"
+      },
+      "email": {
+        "placeholder": "E-mailová adresa",
+        "required": "E-mailová adresa je vyžadována.",
+        "format": "E-mailová adresa není ve správném formátu."
+      },
+      "password": {
+        "placeholder": "Heslo",
+        "required": "Heslo je vyžadováno.",
+        "forgotten": "Zapomenuté heslo"
+      },
+      "new_account": {
+        "label": "Ještě nemáte účet?",
+        "link": "Zaregistrujte se zde!"
+      },
+      "success": {
+        "summary": "Přihlášeno",
+        "detail": "Uživatel byl úspěšně přihlášen"
+      }
+    },
+    "logout": {
+      "success": {
+        "summary": "Odhlášeno",
+        "detail": "Uživatel byl úspěšně odhlášen"
+      }
+    },
+    "register": {
+      "title": "Registrace",
+      "submit": "Registrovat",
+      "name": {
+        "placeholder": "Jméno",
+        "format": "Neplatný formát jména."
+      },
+      "surname": {
+        "placeholder": "Příjmení",
+        "format": "Neplatný formát příjmení."
+      },
+      "email": {
+        "placeholder": "E-mailová adresa",
+        "required": "E-mailová adresa je vyžadována.",
+        "format": "E-mailová adresa není ve správném formátu."
+      },
+      "phone": {
+        "placeholder": "Telefonní číslo (volitelné)",
+        "format": "Telefonní číslo není ve správném formátu."
+      },
+      "password": {
+        "placeholder": "Heslo",
+        "required": "Heslo je vyžadováno.",
+        "invalid": "Heslo nesplňuje požadavky.",
+        "requirements": "Požadavky na heslo",
+        "weak": "Slabé",
+        "medium": "Střední",
+        "strong": "Silné",
+        "min_length": "Minimálně 8 znaků",
+        "uppercase": "Alespoň jedno velké písmeno",
+        "lowercase": "Alespoň jedno malé písmeno",
+        "numeric": "Alespoň jedna číslice",
+        "special_char": "Alespoň jeden speciální znak"
+      },
+      "confirm_password": {
+        "placeholder": "Potvrzení hesla",
+        "required": "Potvrzení hesla je vyžadováno.",
+        "mismatch": "Hesla se neshodují."
+      },
+      "existing_account": {
+        "label": "Již máte účet?",
+        "link": "Přihlašte se zde!"
+      },
+      "location": {
+        "title": "Vaše adresa",
+        "required": "Vaše adresa je vyžadována."
+      },
+      "success": {
+        "summary": "Úspěšná registrace",
+        "detail": "Uživatel byl úspěšně registrován"
+      },
+      "info": {
+        "summary": "Ověření účtu",
+        "detail": "Ověřovací odkaz byl zaslán na Váš email"
+      }
+    },
+    "confirm-account": {
+      "title": "Ověření účtu",
+      "button": {
+        "homepage": "Zpět na domovskou stránku",
+        "login": "Pokračovat na přihlášení"
+      },
+      "success": {
+        "type": {
+          "VERIFICATION_SUCCESS": "Úspěšné ověření"
+        },
+        "code": {
+          "VERIFICATION_SUCCESS": "Účet je úspěšně ověřen"
+        }
+      }
+    },
+    "forgotten-password": {
+      "title": "Zapomenuté heslo",
+      "button": {
+        "label": "Odeslat"
+      },
+      "email": {
+        "placeholder": "E-mailová adresa",
+        "required": "E-mailová adresa je vyžadována.",
+        "format": "E-mailová adresa není ve správném formátu."
+      },
+      "info": {
+        "type": {
+          "FORGOTTEN_PASSWORD_INFO": "Žádost o obnovu hesla"
+        },
+        "code": {
+          "FORGOTTEN_PASSWORD_INFO": "Odkaz pro obnovu hesla byl odeslán na váš email"
+        }
+      }
+    },
+    "set-new-password": {
+      "title": "Nastavení nového hesla",
+      "token": {
+        "invalid": {
+          "title": "Neplatný odkaz",
+          "message": "Nelze zpracovat váš požadavek",
+          "button": {
+            "homepage": "Zpět na domovskou stránku"
+          }
+        }
+      },
+      "button": {
+        "label": "Odeslat"
+      },
+      "success": {
+        "type": {
+          "SET_NEW_PASSWORD_SUCCESS": "Heslo změněno"
+        },
+        "code": {
+          "SET_NEW_PASSWORD_SUCCESS": "Nové heslo bylo úspěšně nastaveno"
+        }
+      }
+    }
+  },
+  "location": {
+    "search": {
+      "button": "Hledat",
+      "placeholder": "Zadejte adresu a stiskněte hledat",
+      "no_results": "Žádné výsledky",
+      "error": "Chyba při vyhledávání"
+    },
+    "current": {
+      "button": "Použít aktuální polohu"
+    },
+    "clear": {
+      "button": "Vymazat"
+    },
+    "geolocation": {
+      "error": "Nepodařilo se získat aktuální polohu"
+    },
+    "selected": {
+      "title": "Vybraná lokace",
+      "multiple": "Vybrané lokace",
+      "deleteAll": "Vymazat vše"
+    },
+    "coordinates": "Souřadnice",
+    "required": "Lokace je vyžadována."
+  },
+  "reportStatus": {
+    "new": "Nový",
+    "in_progress": "Zpracováván",
+    "resolved": "Vyřešen",
+    "rejected": "Odmítnut"
+  },
+  "error": {
+    "type": {
+      "UNAUTHORIZED": "Neoprávněný přístup",
+      "UNKNOWN": "Neznámá chyba",
+      "ACCOUNT_ALREADY_VERIFIED": "Ověření zrušeno",
+      "INVALID_EMAIL": "Chyba registrace",
+      "EMAIL_ALREADY_EXISTS": "Exitující email",
+      "REGISTRATION_FAILED": "Nevydařená registrace",
+      "USER_NOT_FOUND": "Uživatel nenalezen",
+      "INVALID_OR_EXPIRED_TOKEN": "Chyba ověření",
+      "EMAIL_SEND_ERROR": "Interní chyba serveru",
+      "INVALID_REQUEST": "Nevalidní požadavek",
+      "PASSWORD_ALREADY_CHANGED": "Změna hesla",
+      "APIARY_NOT_FOUND": "Stanice nenalezena",
+      "REPORT_NOT_FOUND": "Hlášení nenalezeno",
+      "ALREADY_ASSIGNED": "Hlášení už je převzaté",
+      "FORBIDDEN_BANNED_ACCESS": "Neoprávněný přístup"
+    },
+    "code": {
+      "INVALID_CREDENTIALS": "Chybné údaje",
+      "UNKNOWN": "Nastala neznámá chyba",
+      "ACCOUNT_NOT_VERIFIED": "Účet není ověřen",
+      "ACCOUNT_ALREADY_VERIFIED": "Účet je již ověřen",
+      "INVALID_EMAIL": "Email je v neplatném formátu",
+      "EMAIL_ALREADY_EXISTS": "Daný email je již registrován",
+      "REGISTRATION_FAILED": "Nepodařilo se zaregistrovat uživatele",
+      "USER_NOT_FOUND": "Uživatel nebyl nalezen v databázi",
+      "INVALID_OR_EXPIRED_TOKEN": "Nevalidní nebo expirovaný klíč",
+      "EMAIL_SEND_ERROR": "Chyba při odesílání emailu",
+      "INVALID_REQUEST": "Chyba při zpracování požadavku",
+      "PASSWORD_ALREADY_CHANGED": "Heslo již bylo změněno",
+      "APIARY_NOT_FOUND": "Nepodařilo se smazat stanici",
+      "REPORT_NOT_FOUND": "Nepodařilo se nalézt hlášení",
+      "ALREADY_ASSIGNED": "Tento roj už si vzal jiný včelař",
+      "FORBIDDEN_BANNED_ACCESS": "Uživatel má zakázán přístup"
+    }
+  },
+  "admin": {
+    "users": {
+      "table": {
+        "title": "Včelaři",
+        "clear_filters_button": "Vyčistit filtry",
+        "columns": {
+          "id": "ID",
+          "name": "Jméno",
+          "surname": "Příjmení",
+          "email": "Email",
+          "address": "Adresa",
+          "coordinates": "Souřadnice",
+          "phone": "Telefon",
+          "role": "Role",
+          "verified": "Ověřen",
+          "banned": "Přístup zakázán",
+          "access": "Správa přístupu"
+        },
+        "filters": {
+          "name": "Hledat jméno...",
+          "surname": "Hledat příjmení...",
+          "email": "Hledat email...",
+          "address": "Hledat email...",
+          "phone": "Hledat telefon...",
+          "verified": "Ověřen...",
+          "banned": "Přístup zakázán..."
+        },
+        "button": {
+          "ban": "Zakázat přístup",
+          "unban": "Povolit přístup",
+          "access": {
+            "summary": "Upraveno",
+            "detail": "Uživatelský přístup byl upraven"
+          }
+        },
+        "bool": {
+          "yes": "Ano",
+          "no": "Ne"
+        },
+        "role": {
+          "admin": "Admin",
+          "beekeeper": "Včelař"
+        },
+        "empty": "Žádní včelaři nenalezeni."
+      }
+    }
+  },
+  "forbidden": {
+    "tag": "Přístup odepřen",
+    "title": "Sem nemáte přístup",
+    "subtitle": "Tato stránka je dostupná jen pro oprávněné uživatele. Přihlaste se jiným účtem, nebo se vraťte zpět.",
+    "homepage": "Zpět na domovskou stránku",
+    "report": "Nahlásit roj",
+    "tip": {
+      "title": "Tip",
+      "message": "Pokud si myslíte, že byste přístup mít měli, zkuste se odhlásit a přihlásit znovu."
+    },
+    "graphics": {
+      "message": "Zabezpečeno • Potřebujete oprávnění"
+    },
+    "footer": {
+      "message": "© 2026 Róbert Onder. Software pro lokalizaci včelích rojů."
+    }
+  },
+  "notfound": {
+    "tag": "Stránka nenalezena",
+    "title": "Tady nic není",
+    "subtitle": "Odkaz je špatně, nebo stránka už neexistuje. Zkuste se vrátit domů nebo rovnou nahlásit roj.",
+    "homepage": "Zpět na domovskou stránku",
+    "report": "Nahlásit roj",
+    "tip": {
+      "title": "Tip",
+      "message": "Pokud jste sem přišli z aplikace, je možné, že se URL změnilo. Ověřte cestu nebo použijte menu."
+    },
+    "graphics": {
+      "message": "Ztracená cesta • Najdeme vám návrat"
+    },
+    "footer": {
+      "message": "© 2026 Róbert Onder. Software pro lokalizaci včelích rojů."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Software pro lokalizaci včelích rojů",
+      "subtitle": "Moderní platforma pro sledování a správu včelích rojů. Zjednodušte práci záchranným složkám a pomozte zachraňovat včely."
+    },
+    "actions": {
+      "report": "Nahlásit roj",
+      "myReports": "Moje hlášení",
+      "login": "Přihlásit se",
+      "adminUsers": "Správa včelařů"
+    },
+    "features": {
+      "title": "Hlavní funkce pro včelaře",
+      "subtitle": "Vše co potřebujete pro efektivní práci s včelími roji",
+      "items": {
+        "localization": {
+          "title": "Lokalizace rojů",
+          "description": "Přesné geografické sledování včelích rojů s podporou map a GPS souřadnic."
+        },
+        "community": {
+          "title": "Komunita včelařů",
+          "description": "Včelaři zajišťující efektivní zpracování včelích rojů."
+        },
+        "notifications": {
+          "title": "Upozornění",
+          "description": "Automatická e-mailová notifikace o nových rojích v okolí vašich stanovišť."
+        },
+        "analytics": {
+          "title": "Analytika",
+          "description": "Přehledy o výskytu rojů ve vašem regionu."
+        },
+        "mobile": {
+          "title": "Mobilní přístup",
+          "description": "Responzivní design pro pohodlné používání na všech zařízeních."
+        },
+        "security": {
+          "title": "Bezpečnost",
+          "description": "Zabezpečená autentizace a ochrana vašich osobních údajů."
+        }
+      }
+    },
+    "report": {
+      "title": "Viděli jste roj?",
+      "subtitle": "Pomozte včelařům v okolí! Každý může nahlásit polohu roje na mapě. Vaše hlášení pomůže zachránit včely a podpoří lokální včelařskou komunitu.",
+      "tip": "Tip: Registrujte se jako včelař a získejte přístup k notifikacím o rojích ve vašem okolí",
+      "badge": "Bez registrace • Rychle • Jednoduše"
+    },
+    "join": {
+      "title": {
+        "loggedIn": "Staňte se součástí naší komunity",
+        "guest": "Jste včelař? Připojte se k nám!"
+      },
+      "subtitle": {
+        "loggedIn": "Sledujte roje ve vašem okolí a pomozte rozšířit naši komunitu včelařů.",
+        "guest": "Registrujte se zdarma a získejte přístup k notifikacím o rojích ve vašem okolí."
+      },
+      "actions": {
+        "register": "Registrovat se jako včelař",
+        "login": "Už mám účet"
+      }
+    },
+    "footer": {
+      "message": "© 2026 Róbert Onder. Software pro lokalizaci včelích rojů."
+    }
+  },
+  "createReport": {
+    "page": {
+      "title": "Nahlásit včelí roj",
+      "subtitle": "Pomozte včelařům a označte lokaci, kde jste zaznamenali včelí roj"
+    },
+    "card": {
+      "title": "Informace o hlášení"
+    },
+    "description": {
+      "label": "Popis lokace *",
+      "placeholder": "Popište lokaci roje - např. 'Roj byl nalezen na stromě v zahradě, cca 3 metry nad zemí.'",
+      "error": "Popis je vyžadován (minimálně 10 znaků, maximálně 200 znaků)"
+    },
+    "photo": {
+      "label": "Fotografie (volitelné)",
+      "choose": "Vybrat fotografii",
+      "hint": "Maximální velikost: 10 MB. Podporované formáty: JPEG, JPG, PNG, GIF, WEBP",
+      "errors": {
+        "tooLarge": "Soubor je příliš velký. Maximální velikost je 10 MB.",
+        "invalidType": "Neplatný formát souboru. Podporované formáty: JPEG, JPG, PNG, GIF, WEBP."
+      }
+    },
+    "location": {
+      "label": "Lokace roje *",
+      "error": "Vyberte prosím lokaci na mapě"
+    },
+    "tips": {
+      "title": "Tipy pro kvalitní hlášení",
+      "items": {
+        "place": "Uveďte přesný popis místa (druh stromu, budova, atd.)",
+        "photo": "Přidejte fotku, pokud je to možné",
+        "map": "Označte co nejpřesnější polohu na mapě"
+      }
+    },
+    "actions": {
+      "cancel": "Zrušit",
+      "submit": "Odeslat hlášení"
+    },
+    "cancel": {
+      "title": "Rozpracované hlášení",
+      "confirm": "Opravdu chcete odejít? Všechny neuložené změny budou ztraceny.",
+      "leave": "Odejít",
+      "stay": "Zůstat"
+    },
+    "alert": {
+      "errorSummary": "Chyba",
+      "successSummary": "Úspěch",
+      "successSent": "Hlášení roje bylo úspěšně odesláno"
+    }
+  },
+  "reports": {
+    "title": "Nahlášené včelí roje",
+    "actions": {
+      "clearFilters": "Vyčistit filtry",
+      "takeOver": "Převzít hlášení"
+    },
+    "table": {
+      "photo": "Foto",
+      "coords": "Souřadnice",
+      "location": "Poloha roje",
+      "description": "Popis roje",
+      "createdAt": "Datum vytvoření",
+      "updatedAt": "Datum úpravy",
+      "assignedTo": "Přiřazeno včelaři",
+      "status": "Status roje",
+      "manage": "Správa hlášení"
+    },
+    "filters": {
+      "descriptionPlaceholder": "Hledat v popisu...",
+      "beekeeperPlaceholder": "Vyber včelaře...",
+      "statusPlaceholder": "Vyber status...",
+      "unassigned": "Nepřiřazeno"
+    },
+    "photo": {
+      "alt": "Fotka roje"
+    },
+    "empty": "Žádné reporty nenalezeny.",
+    "confirmDelete": {
+      "header": "Potvrzení smazání",
+      "message": "Opravdu chcete smazat toto hlášení?",
+      "accept": "Smazat",
+      "reject": "Zrušit"
+    },
+    "alert": {
+      "deleteSuccess": {
+        "summary": "OK",
+        "detail": "Hlášení odstraněno"
+      },
+      "takeOverSuccess": {
+        "summary": "Převzato",
+        "detail": "Roj byl úspěšně převzat"
+      }
+    }
+  },
+  "primeng": {
+    "startsWith": "Začíná na",
+    "contains": "Obsahuje",
+    "notContains": "Neobsahuje",
+    "endsWith": "Končí na",
+    "equals": "Je přesně",
+    "notEquals": "Nerovná se",
+    "noFilter": "Bez filtru"
+  }
+}

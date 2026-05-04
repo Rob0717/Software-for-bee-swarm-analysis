@@ -1,0 +1,76 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: bee-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - bee_net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+      start_period: 30s
+
+  migrate:
+    build: ./BE
+    image: bee-backend:latest
+    container_name: bee-migrate
+    restart: "no"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - bee_net
+    env_file:
+      - ./.env
+    command: ["npm", "run", "migration:docker"]
+
+  backend:
+    build: ./BE
+    image: bee-backend:latest
+    container_name: bee-backend
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - uploads:/app/uploads
+    networks:
+      - bee_net
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 3000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    command: ["node", "dist/main.js"]
+
+  frontend:
+    build: ./FE
+    image: bee-frontend:latest
+    container_name: bee-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "80:80"
+    networks:
+      - bee_net
+
+networks:
+  bee_net: {}
+
+volumes:
+  mysql_data: {}
+  uploads: {}

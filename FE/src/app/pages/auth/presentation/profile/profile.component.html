@@ -1,0 +1,455 @@
+<div class="page-container pt-8 pb-8 bg-gradient-to-b from-yellow-50 to-white dark:from-gray-900 dark:to-gray-800 flex justify-center">
+  <p-card class="w-full mx-4 shadow-lg rounded-2xl">
+    <ng-template pTemplate="header">
+      <div class="p-6 pb-0">
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          {{ 'profile.title' | transloco }}
+        </h1>
+      </div>
+    </ng-template>
+
+    <p-tabs [(value)]="activeTabValue" (valueChange)="onTabChange($event)" scrollable>
+      <p-tablist>
+        @for (tab of tabs; track tab.value) {
+          <p-tab [value]="tab.value">
+            <div class="flex items-center gap-2">
+              <i [class]="tab.icon"></i>
+              <span>{{ tab.title | transloco }}</span>
+            </div>
+          </p-tab>
+        }
+      </p-tablist>
+
+      <p-tabpanels>
+        @for (tab of tabs; track tab.value) {
+          <p-tabpanel [value]="tab.value">
+            <div class="p-6 space-y-4">
+              <h2 class="text-xl font-semibold">{{ tab.contentTitle | transloco }}</h2>
+              <p class="text-gray-600 dark:text-gray-300">{{ tab.contentDescription | transloco }}</p>
+
+              @if ((this.activeTabValue === ProfileTabEnum.MY_DATA && this.user === null) ||
+                   (this.activeTabValue === ProfileTabEnum.APIARIES && !this.apiaries().length) ||
+                   (this.activeTabValue === ProfileTabEnum.MY_ACTIVE_SWARMS && !this.activeSwarms().length) ||
+                   (this.activeTabValue === ProfileTabEnum.MY_INACTIVE_SWARMS && !this.inactiveSwarms().length)) {
+                <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+                  <p class="text-sm text-blue-800 dark:text-blue-300 flex items-center gap-2">
+                    <i class="pi pi-info-circle"></i>
+                    {{ tab.placeholder | transloco }}
+                  </p>
+                </div>
+              }
+
+              <p-splitter></p-splitter>
+
+              @if (tab.userData) {
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                    <div class="text-xs uppercase tracking-wide text-gray-500">{{ 'profile.my_data.name' | transloco }}</div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ tab.userData.name || '—' }}</div>
+                  </div>
+
+                  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                    <div class="text-xs uppercase tracking-wide text-gray-500">{{ 'profile.my_data.surname' | transloco }}</div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ tab.userData.surname || '—' }}</div>
+                  </div>
+
+                  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4 md:col-span-2">
+                    <div class="text-xs uppercase tracking-wide text-gray-500">{{ 'profile.my_data.email' | transloco }}</div>
+                    <div class="text-sm font-medium">{{ tab.userData.email || '—' }}</div>
+                  </div>
+
+                  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4 md:col-span-2">
+                    <div class="text-xs uppercase tracking-wide text-gray-500">{{ 'profile.my_data.address' | transloco }}</div>
+                    <div class="text-sm font-medium">{{ tab.userData.address || '—' }}</div>
+                  </div>
+
+                  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                    <div class="text-xs uppercase tracking-wide text-gray-500">{{ 'profile.my_data.phone' | transloco }}</div>
+                    <div class="text-sm font-medium">{{ tab.userData.phoneNumber || '—' }}</div>
+                  </div>
+
+                  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                    <div class="text-xs uppercase tracking-wide text-gray-500">{{ 'profile.my_data.role' | transloco }}</div>
+                    <div class="text-sm font-medium">{{ `profile.role.${tab.userData.role}` | transloco }}</div>
+                  </div>
+
+                  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                    <div class="text-xs uppercase tracking-wide text-gray-500">{{ 'profile.my_data.status' | transloco }}</div>
+                    <div class="flex gap-2 flex-wrap">
+                      <p-tag
+                        [style]="{ 'font-size': '0.75rem', 'padding': '0.25rem 0.5rem' }"
+                        [value]="tab.userData.verified ? ('profile.my_data.verified' | transloco) : ('profile.my_data.unverified' | transloco)"
+                        [severity]="tab.userData.verified ? 'success' : 'warning'"
+                      ></p-tag>
+                    </div>
+                  </div>
+                </div>
+              }
+              @if (this.activeTabValue === ProfileTabEnum.APIARIES) {
+                <div class="flex gap-2">
+                  <p-button (click)="showMapOfApiariesDialog()" label="{{ 'profile.apiaries.show.map' | transloco }}" />
+                  <p-button (click)="showAddApiaryDialog()" label="{{ 'profile.apiaries.show.add' | transloco }}" />
+                </div>
+                <p-dialog
+                  header="{{ 'profile.apiaries.show.dialog.apiaries.title' | transloco }}"
+                  [modal]="true"
+                  [(visible)]="showApiariesDialogVisible"
+                  [breakpoints]="{'960px': '90vw', '640px': '95vw'}"
+                  [style]="{ width: '70vw' }"
+                  [contentStyle]="{ 'overflow-y': 'auto' }"
+                  draggable="false"
+                >
+                  <div class="w-full">
+                    @if (showApiariesDialogVisible) {
+                      <app-generic-map
+                        [config]="{
+                          mode: 'display',
+                          allowMultipleMarkers: true,
+                          showMarkerInfo: true,
+                          readonly: true,
+                          showRadius: true,
+                          radiusColor: '#1b8cff',
+                          defaultZoom: 7
+                        }"
+                        [initialLocations]="apiariesLocations()"
+                        [mapHeight]="'60dvh'"
+                      ></app-generic-map>
+                    }
+                  </div>
+                </p-dialog>
+                <p-dialog
+                  header="{{ 'profile.apiaries.show.dialog.add.apiary.title' | transloco }}"
+                  [modal]="true"
+                  [(visible)]="addApiaryDialogVisible"
+                  [breakpoints]="{'960px': '90vw', '640px': '95vw'}"
+                  [style]="{ width: '50vw' }"
+                  [contentStyle]="{ 'overflow-y': 'auto' }"
+                  draggable="false"
+                >
+                  <form [formGroup]="apiaryForm">
+                    <div class="flex mt-10 gap-4">
+                      <p-floatlabel class="flex-1">
+                        <input
+                          id="apiaryName"
+                          pInputText
+                          formControlName="apiaryName"
+                          maxlength="60"
+                          class="w-full"
+                          [invalid]="_formHelper.isControlInvalid('apiaryName', apiaryForm, isSubmitting)"
+                          (paste)="_formHelper.preventSpaceOnPaste($event, 'apiaryName', apiaryForm)"
+                          autocomplete="off" />
+                        <label for="apiaryName">{{ 'profile.apiaries.show.dialog.add.apiary.name' | transloco }}</label>
+                      </p-floatlabel>
+
+                      <p-floatlabel class="flex-1">
+                        <input
+                          id="apiaryRadius"
+                          pInputText
+                          type="number"
+                          min="1"
+                          step="1"
+                          max="1000"
+                          formControlName="apiaryRadius"
+                          (paste)="_formHelper.preventSpaceOnPaste($event, 'apiaryRadius', apiaryForm)"
+                          (keydown.space)="_formHelper.preventSpace($event)"
+                          class="w-full"
+                          [invalid]="_formHelper.isControlInvalid('apiaryRadius', apiaryForm, isSubmitting)"
+                          autocomplete="off"
+                        />
+                        <label for="apiaryRadius">{{ 'profile.apiaries.show.dialog.add.apiary.radius' | transloco }}</label>
+                      </p-floatlabel>
+                    </div>
+
+                    <div class="mt-4">
+                      @if (addApiaryDialogVisible) {
+                        <app-generic-map
+                          [config]="{
+                            mode: 'select',
+                            showSearch: true,
+                            showCurrentLocation: true,
+                            showChosenLocation: true
+                          }"
+                          [mapHeight]="'50dvh'"
+                          (locationSelected)="onApiaryLocationSelected($event)"
+                          [clear]="clearMap"
+                        ></app-generic-map>
+
+                        @if (!selectedLocation) {
+                          <p-message severity="error" size="small" variant="simple" styleClass="mt-2">
+                            {{ 'location.required' | transloco }}
+                          </p-message>
+                        }
+                      }
+                    </div>
+
+                    <div class="flex justify-end gap-2 m-2">
+                      <p-button
+                        [disabled]="apiaryForm.invalid"
+                        [loading]="isSubmitting"
+                        type="button"
+                        icon="pi pi-save"
+                        (onClick)="submitCreateApiaryForm()"
+                        label="{{ 'profile.apiaries.show.dialog.add.apiary.button.save' | transloco }}"
+                      ></p-button>
+                      <p-button label="{{ 'profile.apiaries.show.dialog.add.apiary.button.cancel' | transloco }}" severity="secondary" (click)="closeCreateApiaryDialog()" />
+                    </div>
+                  </form>
+                </p-dialog>
+                @if (this.apiaries()) {
+                  <p-dataview [value]="apiaries()" [rows]="5" [paginator]="true" [emptyMessage]="' '">
+                    <ng-template #list let-items>
+                      <div class="w-full">
+                        @for (item of items; track item.id; let first = $first) {
+                          <div
+                            class="flex flex-col p-4 sm:p-6 gap-4"
+                            [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
+                          >
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                              <div class="flex-shrink-0 flex items-center justify-center sm:justify-start">
+                                <div class="relative inline-block">
+                                  <div class="w-24 h-24 rounded-border bg-surface-100 dark:bg-surface-800 flex items-center justify-center">
+                                    <i class="pi pi-map-marker text-3xl"></i>
+                                  </div>
+                                  <p-tag
+                                    [value]="item.apiaryRadius + ' km'"
+                                    class="absolute dark:!bg-surface-900"
+                                    [style.left.px]="4"
+                                    [style.top.px]="4"
+                                  />
+                                </div>
+                              </div>
+
+                              <div class="flex-1 min-w-0 flex flex-col gap-4">
+                                <div class="flex flex-col gap-2">
+                                  <div class="text-lg font-medium text-surface-900 dark:text-surface-0 break-all">
+                                    {{ item.apiaryName }}
+                                  </div>
+
+                                  @if (item.address) {
+                                    <div class="text-sm text-surface-600 dark:text-surface-300 break-all">
+                                      {{ item.address }}
+                                    </div>
+                                  } @else {
+                                    <div class="text-sm text-surface-500 dark:text-surface-400 italic">
+                                      {{ 'profile.apiaries.item.no_address' | transloco }}
+                                    </div>
+                                  }
+
+                                  <div class="flex flex-col gap-2 text-sm text-surface-700 dark:text-surface-200">
+                                    <div class="flex flex-wrap gap-x-4 gap-y-1">
+                                      <div class="flex-shrink-0">
+                                        <span class="font-medium">{{ 'profile.apiaries.item.latitude' | transloco }}: {{ item.latitude }}</span>
+                                      </div>
+                                      <div class="flex-shrink-0">
+                                        <span class="font-medium"> {{ 'profile.apiaries.item.longitude' | transloco }}: {{ item.longitude }}</span>
+                                      </div>
+                                    </div>
+                                    <div class="text-surface-600 dark:text-surface-300">
+                                      {{ 'profile.apiaries.item.id' | transloco }}: <span class="font-medium text-surface-900 dark:text-surface-0">{{ item.id }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card flex justify-center md:justify-start">
+                                <p-button
+                                  (click)="deleteApiary($event, item.id)"
+                                  label="{{ 'profile.apiaries.item.delete' | transloco }}"
+                                  severity="danger"
+                                  [outlined]="true"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </ng-template>
+                  </p-dataview>
+                }
+              }
+              @if (this.activeTabValue === ProfileTabEnum.MY_ACTIVE_SWARMS) {
+                @if (this.activeSwarms()) {
+                  <p-dataview
+                    #activeSwarmsView
+                    [value]="activeSwarms()"
+                    [rows]="5"
+                    [paginator]="true"
+                    [emptyMessage]="' '"
+                  >
+                    <ng-template #list let-items>
+                      <div class="w-full">
+                        @for (item of items; track item.id; let first = $first) {
+                          <div class="flex flex-col p-4 sm:p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+
+                              <div class="flex-shrink-0 flex items-center justify-center">
+                                @if (item.photoUrl) {
+                                  <p-image
+                                    [src]="getSwarmPhotoUrl(item.photoUrl)"
+                                    alt="{{ 'profile.my_swarms.photo_alt' | transloco }}"
+                                    imageClass="w-24 h-24 object-cover border border-surface-200 dark:border-surface-700 rounded-border cursor-pointer"
+                                    [preview]="true"
+                                  ></p-image>
+
+                                } @else {
+                                  <div class="w-24 h-24 rounded-border bg-surface-100 dark:bg-surface-800 flex items-center justify-center">
+                                    <i class="pi pi-image text-3xl text-surface-400"></i>
+                                  </div>
+                                }
+                              </div>
+
+                              <div class="">
+                                <div class="flex-1 min-w-0 flex flex-col gap-4">
+                                  <div class="text-lg font-medium text-surface-900 dark:text-surface-0 break-all">
+                                    {{ item.description || ('profile.my_swarms.no_description' | transloco) }}
+                                  </div>
+
+                                  <div class="flex flex-wrap gap-2 items-center">
+                                    <p-tag [severity]="getSeverity(item.status)">
+                                      {{ getReportStatusKey(item.status) | transloco }}
+                                    </p-tag>
+
+                                    <span class="text-sm text-surface-600 dark:text-surface-300">
+                                      {{ item.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}
+                                    </span>
+                                  </div>
+
+                                  <div class="text-sm text-surface-700 dark:text-surface-200">
+                                    <div class="flex-shrink-0">
+                                      <span class="font-medium">{{ 'profile.my_swarms.latitude' | transloco }}: {{ item.latitude }}</span>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                      <span class="font-medium">{{ 'profile.my_swarms.longitude' | transloco }}: {{ item.longitude }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="block mt-2 md:flex">
+                                  <p-select
+                                    [options]="reportStatusFields"
+                                    optionValue="value"
+                                    [ngModel]="selectedReportStatuses()[item.id]"
+                                    (ngModelChange)="onReportStatusChange(item.id, $event)"
+                                    class="mb-2 mr-2 w-auto"
+                                  >
+                                    <ng-template let-option pTemplate="item">
+                                      {{ option.labelKey | transloco }}
+                                    </ng-template>
+
+                                    <ng-template let-option pTemplate="selectedItem">
+                                      {{ option.labelKey | transloco }}
+                                    </ng-template>
+                                  </p-select>
+                                  <p-button
+                                    label="{{ 'profile.my_swarms.remove.label' | transloco }}"
+                                    icon="pi pi-user-minus"
+                                    severity="danger"
+                                    (click)="removeSwarmFromBeekeeper($event, item.id)"
+                                    [outlined]="true"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </ng-template>
+                  </p-dataview>
+                }
+              }
+              @if (this.activeTabValue === ProfileTabEnum.MY_INACTIVE_SWARMS) {
+                @if (this.inactiveSwarms()) {
+                  <p-dataview
+                    #inactiveSwarmsView
+                    [value]="inactiveSwarms()"
+                    [rows]="5"
+                    [paginator]="true"
+                    [emptyMessage]="' '"
+                  >
+                    <ng-template #list let-items>
+                      <div class="w-full">
+                        @for (item of items; track item.id; let first = $first) {
+                          <div class="flex flex-col p-4 sm:p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+
+                              <div class="flex-shrink-0 flex items-center justify-center">
+                                @if (item.photoUrl) {
+                                  <p-image
+                                    [src]="getSwarmPhotoUrl(item.photoUrl)"
+                                    alt="{{ 'profile.my_swarms.photo_alt' | transloco }}"
+                                    imageClass="w-24 h-24 object-cover border border-surface-200 dark:border-surface-700 rounded-border cursor-pointer"
+                                    [preview]="true"
+                                  ></p-image>
+
+                                } @else {
+                                  <div class="w-24 h-24 rounded-border bg-surface-100 dark:bg-surface-800 flex items-center justify-center">
+                                    <i class="pi pi-image text-3xl text-surface-400"></i>
+                                  </div>
+                                }
+                              </div>
+
+                              <div>
+                                <div class="flex-1 min-w-0 flex flex-col gap-4">
+                                  <div class="text-lg font-medium text-surface-900 dark:text-surface-0 break-all">
+                                    {{ item.description || ('profile.my_swarms.no_description' | transloco) }}
+                                  </div>
+
+                                  <div class="flex flex-wrap gap-2 items-center">
+                                    <p-tag [severity]="getSeverity(item.status)">
+                                      {{ getReportStatusKey(item.status) | transloco }}
+                                    </p-tag>
+
+                                    <span class="text-sm text-surface-600 dark:text-surface-300">
+                                      {{ item.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}
+                                    </span>
+                                  </div>
+
+                                  <div class="text-sm text-surface-700 dark:text-surface-200">
+                                    <div class="flex-shrink-0">
+                                      <span class="font-medium">{{ 'profile.my_swarms.latitude' | transloco }}: {{ item.latitude }}</span>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                      <span class="font-medium">{{ 'profile.my_swarms.longitude' | transloco }}: {{ item.longitude }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="block mt-2 md:flex">
+                                  <p-select
+                                    [options]="reportStatusFields"
+                                    optionValue="value"
+                                    [ngModel]="selectedReportStatuses()[item.id]"
+                                    (ngModelChange)="onReportStatusChange(item.id, $event)"
+                                    class="mb-2 mr-2 w-auto"
+                                  >
+                                    <ng-template let-option pTemplate="item">
+                                      {{ option.labelKey | transloco }}
+                                    </ng-template>
+
+                                    <ng-template let-option pTemplate="selectedItem">
+                                      {{ option.labelKey | transloco }}
+                                    </ng-template>
+                                  </p-select>
+                                  <p-button
+                                    label="{{ 'profile.my_swarms.remove.label' | transloco }}"
+                                    icon="pi pi-user-minus"
+                                    severity="danger"
+                                    (click)="removeSwarmFromBeekeeper($event, item.id)"
+                                    [outlined]="true"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </ng-template>
+                  </p-dataview>
+                }
+              }
+            </div>
+          </p-tabpanel>
+        }
+      </p-tabpanels>
+    </p-tabs>
+  </p-card>
+</div>
